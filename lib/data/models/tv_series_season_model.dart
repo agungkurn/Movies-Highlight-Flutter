@@ -31,7 +31,7 @@ class TvSeriesSeasonModel extends Equatable {
         overview: json["overview"],
         posterPath: json["poster_path"],
         seasonNumber: json["season_number"],
-        voteAverage: json["vote_average"],
+        voteAverage: double.parse(json["vote_average"].toString()),
       );
 
   Map<String, dynamic> toJson() => {

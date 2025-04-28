@@ -1,0 +1,29 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "backdrop_path": "/2DxTaDzhtPbF53blqeJTyMVtRkf.jpg",
+      "id": 6647,
+      "name": "The Bold and the Beautiful",
+      "original_name": "The Bold and the Beautiful",
+      "overview": "Continuing drama combining romance and intrigue set against the glittering backdrop of Beverly Hills and the American fashion industry.",
+      "poster_path": "/1LsYmbJHKp1bp1JxX7HkcOr9ddv.jpg",
+      "media_type": "tv",
+      "adult": false,
+      "original_language": "en",
+      "genre_ids": [
+        10766,
+        18
+      ],
+      "popularity": 68.4044,
+      "first_air_date": "1987-03-23",
+      "vote_average": 5.5,
+      "vote_count": 137,
+      "origin_country": [
+        "US"
+      ]
+    }
+  ],
+  "total_pages": 2,
+  "total_results": 40
+}
