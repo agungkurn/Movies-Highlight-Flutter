@@ -16,3 +16,4 @@ Final submission Dicoding's MFDE class.
 1. BLoC
 2. SSL Pinning
 3. Encrypted SQLite
+4. CI with CodeMagic

@@ -1,4 +1,3 @@
-import 'package:ditonton/domain/usecases/get_movie_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/get_tv_series_watchlist_status.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
