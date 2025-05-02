@@ -1,2 +1,0 @@
-D:/FlutterProject/a199-flutter-expert-project-main/android/app/.cxx/Debug/2c245a1j/armeabi-v7a/CMakeFiles/edit_cache.dir
-D:/FlutterProject/a199-flutter-expert-project-main/android/app/.cxx/Debug/2c245a1j/armeabi-v7a/CMakeFiles/rebuild_cache.dir
