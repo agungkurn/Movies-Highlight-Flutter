@@ -16,9 +16,7 @@ class DatabaseHelper {
   static Database? _database;
 
   Future<Database?> get database async {
-    if (_database == null) {
-      _database = await _initDb();
-    }
+    _database ??= await _initDb();
     return _database;
   }
 
@@ -34,7 +32,7 @@ class DatabaseHelper {
   }
 
   void _onCreate(Database db, int version) async {
-    [_tblWatchlistMovies, _tblWatchlistTvSeries].forEach((tableName) async {
+    for (var tableName in [_tblWatchlistMovies, _tblWatchlistTvSeries]) {
       await db.execute('''
       CREATE TABLE  $tableName (
         id INTEGER PRIMARY KEY,
@@ -43,7 +41,7 @@ class DatabaseHelper {
         posterPath TEXT
       );
     ''');
-    });
+    }
   }
 
   Future<int> insertMovie(MovieTable movie) async {

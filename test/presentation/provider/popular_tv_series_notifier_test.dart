@@ -50,7 +50,7 @@ void main() {
     // act
     notifier.fetchPopularTvSeries();
     // assert
-    expect(notifier.state, RequestState.Loading);
+    expect(notifier.state, RequestState.loading);
     expect(listenerCallCount, 1);
   });
 
@@ -62,7 +62,7 @@ void main() {
     // act
     await notifier.fetchPopularTvSeries();
     // assert
-    expect(notifier.state, RequestState.Loaded);
+    expect(notifier.state, RequestState.loaded);
     expect(notifier.tvSeries, tTvSeries);
     expect(listenerCallCount, 2);
   });
@@ -74,7 +74,7 @@ void main() {
     // act
     await notifier.fetchPopularTvSeries();
     // assert
-    expect(notifier.state, RequestState.Error);
+    expect(notifier.state, RequestState.error);
     expect(notifier.message, 'Server Failure');
     expect(listenerCallCount, 2);
   });

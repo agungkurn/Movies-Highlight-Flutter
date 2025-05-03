@@ -6,7 +6,7 @@ class TvSeriesNetworkModel extends Equatable {
   final String name;
   final String originCountry;
 
-  TvSeriesNetworkModel({
+  const TvSeriesNetworkModel({
     required this.id,
     required this.logoPath,
     required this.name,

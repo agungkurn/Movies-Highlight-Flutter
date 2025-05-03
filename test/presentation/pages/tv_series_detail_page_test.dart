@@ -19,7 +19,7 @@ void main() {
     mockNotifier = MockTvSeriesDetailNotifier();
   });
 
-  Widget _makeTestableWidget(Widget body) {
+  Widget makeTestableWidget(Widget body) {
     return ChangeNotifierProvider<TvSeriesDetailNotifier>.value(
       value: mockNotifier,
       child: MaterialApp(
@@ -31,15 +31,15 @@ void main() {
   testWidgets(
       'Watchlist button should display add icon when tv series not added to watchlist',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
+    when(mockNotifier.state).thenReturn(RequestState.loaded);
     when(mockNotifier.tvSeries).thenReturn(testTvSeriesDetail);
-    when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
+    when(mockNotifier.recommendationState).thenReturn(RequestState.loaded);
     when(mockNotifier.recommendations).thenReturn(<TvSeries>[]);
     when(mockNotifier.isAddedToWatchlist).thenReturn(false);
 
     final watchlistButtonIcon = find.byIcon(Icons.add);
 
-    await tester.pumpWidget(_makeTestableWidget(TvSeriesDetailPage(id: 1)));
+    await tester.pumpWidget(makeTestableWidget(TvSeriesDetailPage(id: 1)));
 
     expect(watchlistButtonIcon, findsOneWidget);
   });
@@ -47,15 +47,15 @@ void main() {
   testWidgets(
       'Watchlist button should dispay check icon when tv series is added to wathclist',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
+    when(mockNotifier.state).thenReturn(RequestState.loaded);
     when(mockNotifier.tvSeries).thenReturn(testTvSeriesDetail);
-    when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
+    when(mockNotifier.recommendationState).thenReturn(RequestState.loaded);
     when(mockNotifier.recommendations).thenReturn(<TvSeries>[]);
     when(mockNotifier.isAddedToWatchlist).thenReturn(true);
 
     final watchlistButtonIcon = find.byIcon(Icons.check);
 
-    await tester.pumpWidget(_makeTestableWidget(TvSeriesDetailPage(id: 1)));
+    await tester.pumpWidget(makeTestableWidget(TvSeriesDetailPage(id: 1)));
 
     expect(watchlistButtonIcon, findsOneWidget);
   });
@@ -63,16 +63,16 @@ void main() {
   testWidgets(
       'Watchlist button should display Snackbar when added to watchlist',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
+    when(mockNotifier.state).thenReturn(RequestState.loaded);
     when(mockNotifier.tvSeries).thenReturn(testTvSeriesDetail);
-    when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
+    when(mockNotifier.recommendationState).thenReturn(RequestState.loaded);
     when(mockNotifier.recommendations).thenReturn(<TvSeries>[]);
     when(mockNotifier.isAddedToWatchlist).thenReturn(false);
     when(mockNotifier.watchlistMessage).thenReturn('Added to Watchlist');
 
     final watchlistButton = find.byType(FilledButton);
 
-    await tester.pumpWidget(_makeTestableWidget(TvSeriesDetailPage(id: 1)));
+    await tester.pumpWidget(makeTestableWidget(TvSeriesDetailPage(id: 1)));
 
     expect(find.byIcon(Icons.add), findsOneWidget);
 
@@ -86,16 +86,16 @@ void main() {
   testWidgets(
       'Watchlist button should display AlertDialog when add to watchlist failed',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
+    when(mockNotifier.state).thenReturn(RequestState.loaded);
     when(mockNotifier.tvSeries).thenReturn(testTvSeriesDetail);
-    when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
+    when(mockNotifier.recommendationState).thenReturn(RequestState.loaded);
     when(mockNotifier.recommendations).thenReturn(<TvSeries>[]);
     when(mockNotifier.isAddedToWatchlist).thenReturn(false);
     when(mockNotifier.watchlistMessage).thenReturn('Failed');
 
     final watchlistButton = find.byType(FilledButton);
 
-    await tester.pumpWidget(_makeTestableWidget(TvSeriesDetailPage(id: 1)));
+    await tester.pumpWidget(makeTestableWidget(TvSeriesDetailPage(id: 1)));
 
     expect(find.byIcon(Icons.add), findsOneWidget);
 

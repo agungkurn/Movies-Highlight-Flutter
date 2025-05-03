@@ -8,21 +8,26 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class WatchlistPage extends StatefulWidget {
-  static const ROUTE_NAME = '/watchlist';
+  static const routeName = '/watchlist';
+
+  const WatchlistPage({Key? key}) : super(key: key);
 
   @override
-  _WatchlistPageState createState() => _WatchlistPageState();
+  State<WatchlistPage> createState() => _WatchlistPageState();
 }
 
 class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
   @override
   void initState() {
     super.initState();
+
+    final movieProvider =
+        Provider.of<WatchlistMovieNotifier>(context, listen: false);
+    final tvProvider =
+        Provider.of<WatchlistTvSeriesNotifier>(context, listen: false);
     Future.microtask(() {
-      Provider.of<WatchlistMovieNotifier>(context, listen: false)
-          .fetchWatchlistMovies();
-      Provider.of<WatchlistTvSeriesNotifier>(context, listen: false)
-          .fetchWatchlist();
+      movieProvider.fetchWatchlistMovies();
+      tvProvider.fetchWatchlist();
     });
   }
 
@@ -32,6 +37,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
+  @override
   void didPopNext() {
     Provider.of<WatchlistMovieNotifier>(context, listen: false)
         .fetchWatchlistMovies();
@@ -51,21 +57,21 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
           ),
         ),
         body: TabBarView(
-          children: [_MovieTab(), _TvSeriesTab()],
+          children: [_movieTab(), _tvSeriesTab()],
         ),
       ),
     );
   }
 
-  Widget _MovieTab() => Padding(
+  Widget _movieTab() => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Consumer<WatchlistMovieNotifier>(
           builder: (context, data, child) {
-            if (data.watchlistState == RequestState.Loading) {
+            if (data.watchlistState == RequestState.loading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.watchlistState == RequestState.Loaded) {
+            } else if (data.watchlistState == RequestState.loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final movie = data.watchlistMovies[index];
@@ -83,15 +89,15 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
         ),
       );
 
-  Widget _TvSeriesTab() => Padding(
+  Widget _tvSeriesTab() => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Consumer<WatchlistTvSeriesNotifier>(
           builder: (context, data, child) {
-            if (data.watchlistState == RequestState.Loading) {
+            if (data.watchlistState == RequestState.loading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.watchlistState == RequestState.Loaded) {
+            } else if (data.watchlistState == RequestState.loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final tvSeries = data.watchlist[index];

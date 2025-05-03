@@ -16,7 +16,7 @@ class TvSeries extends Equatable {
   final double? voteAverage;
   final int? voteCount;
 
-  TvSeries({
+  const TvSeries({
     required this.adult,
     required this.backdropPath,
     required this.genreIds,
@@ -33,21 +33,21 @@ class TvSeries extends Equatable {
     required this.voteCount,
   });
 
-  TvSeries.watchlist({
+  const TvSeries.watchlist({
     required this.id,
     required this.overview,
     required this.posterPath,
     required this.name,
-    this.adult = null,
-    this.backdropPath = null,
-    this.genreIds = null,
-    this.originCountry = null,
-    this.originalLanguage = null,
-    this.originalName = null,
-    this.popularity = null,
-    this.firstAirDate = null,
-    this.voteAverage = null,
-    this.voteCount = null,
+    this.adult,
+    this.backdropPath,
+    this.genreIds,
+    this.originCountry,
+    this.originalLanguage,
+    this.originalName,
+    this.popularity,
+    this.firstAirDate,
+    this.voteAverage,
+    this.voteCount,
   });
 
   @override

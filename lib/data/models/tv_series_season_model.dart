@@ -10,7 +10,7 @@ class TvSeriesSeasonModel extends Equatable {
   final int seasonNumber;
   final double voteAverage;
 
-  TvSeriesSeasonModel({
+  const TvSeriesSeasonModel({
     required this.airDate,
     required this.episodeCount,
     required this.id,

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Movie extends Equatable {
-  Movie({
+  const Movie({
     required this.adult,
     required this.backdropPath,
     required this.genreIds,
@@ -17,20 +17,20 @@ class Movie extends Equatable {
     required this.voteCount,
   });
 
-  Movie.watchlist({
+  const Movie.watchlist({
     required this.id,
     required this.overview,
     required this.posterPath,
     required this.title,
-    this.adult = null,
-    this.backdropPath = null,
-    this.genreIds = null,
-    this.originalTitle = null,
-    this.popularity = null,
-    this.releaseDate = null,
-    this.video = null,
-    this.voteAverage = null,
-    this.voteCount = null,
+    this.adult,
+    this.backdropPath,
+    this.genreIds,
+    this.originalTitle,
+    this.popularity,
+    this.releaseDate,
+    this.video,
+    this.voteAverage,
+    this.voteCount,
   });
 
   final bool? adult;
