@@ -167,7 +167,7 @@ class DetailContent extends StatelessWidget {
                                     context: context,
                                     builder: (context) {
                                       return AlertDialog(
-                                        content: Text(message!),
+                                        content: Text(state.errorMessage!),
                                       );
                                     },
                                   );
