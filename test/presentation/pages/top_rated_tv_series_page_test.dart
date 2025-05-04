@@ -1,35 +1,35 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/tv_series.dart';
+import 'package:ditonton/presentation/bloc/top_rated_tv_series/top_rated_tv_series_bloc.dart';
 import 'package:ditonton/presentation/pages/top_rated_tv_series_page.dart';
-import 'package:ditonton/presentation/provider/top_rated_tv_series_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
 
 import 'top_rated_tv_series_page_test.mocks.dart';
 
-@GenerateMocks([TopRatedTvSeriesNotifier])
+@GenerateMocks([TopRatedTvSeriesBloc])
 void main() {
-  late MockTopRatedTvSeriesNotifier mockNotifier;
+  late MockTopRatedTvSeriesBloc bloc;
 
   setUp(() {
-    mockNotifier = MockTopRatedTvSeriesNotifier();
+    bloc = MockTopRatedTvSeriesBloc();
   });
 
   Widget makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<TopRatedTvSeriesNotifier>.value(
-      value: mockNotifier,
-      child: MaterialApp(
-        home: body,
-      ),
+    return BlocProvider<TopRatedTvSeriesBloc>.value(
+      value: bloc,
+      child: MaterialApp(home: body),
     );
   }
 
-  testWidgets('Page should display progress bar when loading',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.loading);
+  testWidgets('Page should display progress bar when loading', (
+    WidgetTester tester,
+  ) async {
+    final state = TopRatedTvSeriesState(state: RequestState.loading);
+    when(bloc.stream).thenAnswer((_) => Stream.value(state));
+    when(bloc.state).thenReturn(state);
 
     final progressFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
@@ -40,10 +40,15 @@ void main() {
     expect(progressFinder, findsOneWidget);
   });
 
-  testWidgets('Page should display when data is loaded',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.loaded);
-    when(mockNotifier.tvSeries).thenReturn(<TvSeries>[]);
+  testWidgets('Page should display when data is loaded', (
+    WidgetTester tester,
+  ) async {
+    final state = TopRatedTvSeriesState(
+      state: RequestState.loaded,
+      tvSeries: [],
+    );
+    when(bloc.stream).thenAnswer((_) => Stream.value(state));
+    when(bloc.state).thenReturn(state);
 
     final listViewFinder = find.byType(ListView);
 
@@ -52,10 +57,15 @@ void main() {
     expect(listViewFinder, findsOneWidget);
   });
 
-  testWidgets('Page should display text with message when Error',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.error);
-    when(mockNotifier.message).thenReturn('Error message');
+  testWidgets('Page should display text with message when Error', (
+    WidgetTester tester,
+  ) async {
+    final state = TopRatedTvSeriesState(
+      state: RequestState.error,
+      errorMessage: 'Error message',
+    );
+    when(bloc.stream).thenAnswer((_) => Stream.value(state));
+    when(bloc.state).thenReturn(state);
 
     final textFinder = find.byKey(Key('error_message'));
 
