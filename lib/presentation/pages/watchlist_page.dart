@@ -1,16 +1,16 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/utils.dart';
-import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
-import 'package:ditonton/presentation/provider/watchlist_tv_series_notifier.dart';
+import 'package:ditonton/presentation/bloc/watchlist_movie/watchlist_movie_bloc.dart';
+import 'package:ditonton/presentation/bloc/watchlist_tv_series/watchlist_tv_series_bloc.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:ditonton/presentation/widgets/tv_series_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WatchlistPage extends StatefulWidget {
   static const routeName = '/watchlist';
 
-  const WatchlistPage({Key? key}) : super(key: key);
+  const WatchlistPage({super.key});
 
   @override
   State<WatchlistPage> createState() => _WatchlistPageState();
@@ -21,14 +21,12 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
   void initState() {
     super.initState();
 
-    final movieProvider =
-        Provider.of<WatchlistMovieNotifier>(context, listen: false);
-    final tvProvider =
-        Provider.of<WatchlistTvSeriesNotifier>(context, listen: false);
-    Future.microtask(() {
-      movieProvider.fetchWatchlistMovies();
-      tvProvider.fetchWatchlist();
-    });
+    context.read<WatchlistMovieBloc>().add(
+      WatchlistMovieEvent.fetchWatchlist(),
+    );
+    context.read<WatchlistTvSeriesBloc>().add(
+      WatchlistTvSeriesEvent.fetchWatchlist(),
+    );
   }
 
   @override
@@ -39,10 +37,12 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
 
   @override
   void didPopNext() {
-    Provider.of<WatchlistMovieNotifier>(context, listen: false)
-        .fetchWatchlistMovies();
-    Provider.of<WatchlistTvSeriesNotifier>(context, listen: false)
-        .fetchWatchlist();
+    context.read<WatchlistMovieBloc>().add(
+      WatchlistMovieEvent.fetchWatchlist(),
+    );
+    context.read<WatchlistTvSeriesBloc>().add(
+      WatchlistTvSeriesEvent.fetchWatchlist(),
+    );
   }
 
   @override
@@ -52,68 +52,60 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Watchlist'),
-          bottom: TabBar(
-            tabs: [Tab(text: "Movies"), Tab(text: "TV Series")],
-          ),
+          bottom: TabBar(tabs: [Tab(text: "Movies"), Tab(text: "TV Series")]),
         ),
-        body: TabBarView(
-          children: [_movieTab(), _tvSeriesTab()],
-        ),
+        body: TabBarView(children: [_movieTab(), _tvSeriesTab()]),
       ),
     );
   }
 
   Widget _movieTab() => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer<WatchlistMovieNotifier>(
-          builder: (context, data, child) {
-            if (data.watchlistState == RequestState.loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.watchlistState == RequestState.loaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final movie = data.watchlistMovies[index];
-                  return MovieCard(movie);
-                },
-                itemCount: data.watchlistMovies.length,
-              );
-            } else {
-              return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
-              );
-            }
-          },
-        ),
-      );
+    padding: const EdgeInsets.all(8.0),
+    child: BlocBuilder<WatchlistMovieBloc, WatchlistMovieState>(
+      builder: (context, data) {
+        if (data.state == RequestState.loading) {
+          return Center(child: CircularProgressIndicator());
+        } else if (data.state == RequestState.loaded) {
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              final movie = data.movies[index];
+              return MovieCard(movie);
+            },
+            itemCount: data.movies.length,
+          );
+        } else {
+          return Center(
+            key: Key('error_message'),
+            child: Text(data.errorMessage ?? "An error occurred"),
+          );
+        }
+      },
+    ),
+  );
 
   Widget _tvSeriesTab() => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer<WatchlistTvSeriesNotifier>(
-          builder: (context, data, child) {
-            if (data.watchlistState == RequestState.loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.watchlistState == RequestState.loaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final tvSeries = data.watchlist[index];
-                  return TvSeriesCard(tvSeries);
-                },
-                itemCount: data.watchlist.length,
-              );
-            } else {
-              return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
-              );
-            }
-          },
-        ),
-      );
+    padding: const EdgeInsets.all(8.0),
+    child: BlocBuilder<WatchlistTvSeriesBloc, WatchlistTvSeriesState>(
+      builder: (context, data) {
+        if (data.state == RequestState.loading) {
+          return Center(child: CircularProgressIndicator());
+        } else if (data.state == RequestState.loaded) {
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              final tvSeries = data.tvSeries[index];
+              return TvSeriesCard(tvSeries);
+            },
+            itemCount: data.tvSeries.length,
+          );
+        } else {
+          return Center(
+            key: Key('error_message'),
+            child: Text(data.errorMessage ?? "An error occurred"),
+          );
+        }
+      },
+    ),
+  );
 
   @override
   void dispose() {

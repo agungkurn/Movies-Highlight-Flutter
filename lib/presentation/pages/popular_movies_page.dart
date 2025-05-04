@@ -1,13 +1,13 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
+import 'package:ditonton/presentation/bloc/popular_movies/popular_movies_bloc.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PopularMoviesPage extends StatefulWidget {
   static const routeName = '/popular-movie';
 
-  const PopularMoviesPage({Key? key}) : super(key: key);
+  const PopularMoviesPage({super.key});
 
   @override
   State<PopularMoviesPage> createState() => _PopularMoviesPageState();
@@ -17,25 +17,19 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
   @override
   void initState() {
     super.initState();
-
-    final provider = Provider.of<PopularMoviesNotifier>(context, listen: false);
-    Future.microtask(() => provider.fetchPopularMovies());
+    context.read<PopularMoviesBloc>().add(PopularMoviesEvent.fetchPopular());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Popular Movies'),
-      ),
+      appBar: AppBar(title: Text('Popular Movies')),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularMoviesNotifier>(
-          builder: (context, data, child) {
+        child: BlocBuilder<PopularMoviesBloc, PopularMoviesState>(
+          builder: (context, data) {
             if (data.state == RequestState.loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              return Center(child: CircularProgressIndicator());
             } else if (data.state == RequestState.loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
@@ -47,7 +41,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
             } else {
               return Center(
                 key: Key('error_message'),
-                child: Text(data.message),
+                child: Text(data.errorMessage ?? "An error occurred"),
               );
             }
           },

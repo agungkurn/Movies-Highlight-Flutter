@@ -1,13 +1,13 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:ditonton/presentation/bloc/top_rated_movies/top_rated_movies_bloc.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TopRatedMoviesPage extends StatefulWidget {
   static const routeName = '/top-rated-movie';
 
-  const TopRatedMoviesPage({Key? key}) : super(key: key);
+  const TopRatedMoviesPage({super.key});
 
   @override
   State<TopRatedMoviesPage> createState() => _TopRatedMoviesPageState();
@@ -18,25 +18,19 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
   void initState() {
     super.initState();
 
-    final provider =
-        Provider.of<TopRatedMoviesNotifier>(context, listen: false);
-    Future.microtask(() => provider.fetchTopRatedMovies());
+    context.read<TopRatedMoviesBloc>().add(TopRatedMoviesEvent.fetchTopRated());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Top Rated Movies'),
-      ),
+      appBar: AppBar(title: Text('Top Rated Movies')),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<TopRatedMoviesNotifier>(
-          builder: (context, data, child) {
+        child: BlocBuilder<TopRatedMoviesBloc, TopRatedMoviesState>(
+          builder: (context, data) {
             if (data.state == RequestState.loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              return Center(child: CircularProgressIndicator());
             } else if (data.state == RequestState.loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
@@ -48,7 +42,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
             } else {
               return Center(
                 key: Key('error_message'),
-                child: Text(data.message),
+                child: Text(data.errorMessage ?? "An error occurred"),
               );
             }
           },

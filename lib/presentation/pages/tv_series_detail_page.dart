@@ -4,17 +4,17 @@ import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/tv_series.dart';
 import 'package:ditonton/domain/entities/tv_series_details.dart';
-import 'package:ditonton/presentation/provider/tv_series_detail_notifier.dart';
+import 'package:ditonton/presentation/bloc/tv_series_details/tv_series_detail_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
 
 class TvSeriesDetailPage extends StatefulWidget {
   static const routeName = '/detail-tv-series';
 
   final int id;
 
-  const TvSeriesDetailPage({Key? key, required this.id}) : super(key: key);
+  const TvSeriesDetailPage({super.key, required this.id});
 
   @override
   State<TvSeriesDetailPage> createState() => _TvSeriesDetailPageState();
@@ -25,35 +25,30 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
   void initState() {
     super.initState();
 
-    final provider =
-        Provider.of<TvSeriesDetailNotifier>(context, listen: false);
-    Future.microtask(() {
-      provider
-        ..fetchDetail(widget.id)
-        ..loadWatchlistStatus(widget.id);
-    });
+    context.read<TvSeriesDetailBloc>()
+      ..add(TvSeriesDetailEvent.fetchDetails(widget.id))
+      ..add(TvSeriesDetailEvent.fetchRecommendations(widget.id))
+      ..add(TvSeriesDetailEvent.checkWatchlistStatus(widget.id));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<TvSeriesDetailNotifier>(
-        builder: (context, provider, child) {
-          if (provider.state == RequestState.loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (provider.state == RequestState.loaded) {
+      body: BlocBuilder<TvSeriesDetailBloc, TvSeriesDetailState>(
+        builder: (context, provider) {
+          if (provider.detailsState == RequestState.loading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (provider.detailsState == RequestState.loaded) {
             final tvSeries = provider.tvSeries;
             return SafeArea(
               child: DetailContent(
-                tvSeries,
-                provider.recommendations,
-                provider.isAddedToWatchlist,
+                tvSeries: tvSeries!,
+                recommendations: provider.tvSeriesRecommendations,
+                isAddedWatchlist: provider.isInWatchlist,
               ),
             );
           } else {
-            return Text(provider.message);
+            return Text(provider.errorMessage ?? "An error occurred");
           }
         },
       ),
@@ -66,24 +61,25 @@ class DetailContent extends StatelessWidget {
   final List<TvSeries> recommendations;
   final bool isAddedWatchlist;
 
-  const DetailContent(
-      this.tvSeries, this.recommendations, this.isAddedWatchlist,
-      {Key? key})
-      : super(key: key);
+  const DetailContent({
+    required this.tvSeries,
+    required this.recommendations,
+    required this.isAddedWatchlist,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final provider =
-        Provider.of<TvSeriesDetailNotifier>(context, listen: false);
+    final bloc = context.read<TvSeriesDetailBloc>();
+
     return Stack(
       children: [
         CachedNetworkImage(
           imageUrl: 'https://image.tmdb.org/t/p/w500${tvSeries.posterPath}',
           width: screenWidth,
-          placeholder: (context, url) => Center(
-            child: CircularProgressIndicator(),
-          ),
+          placeholder:
+              (context, url) => Center(child: CircularProgressIndicator()),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
         Container(
@@ -95,11 +91,7 @@ class DetailContent extends StatelessWidget {
                   color: kRichBlack,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 ),
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  top: 16,
-                  right: 16,
-                ),
+                padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
                 child: Stack(
                   children: [
                     Container(
@@ -109,40 +101,21 @@ class DetailContent extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              tvSeries.name,
-                              style: kHeading5,
-                            ),
+                            Text(tvSeries.name, style: kHeading5),
                             FilledButton(
-                              onPressed: () async {
+                              onPressed: () {
                                 if (!isAddedWatchlist) {
-                                  await provider.addWatchlist(tvSeries);
+                                  bloc.add(
+                                    TvSeriesDetailEvent.addToWatchlist(
+                                      tvSeries,
+                                    ),
+                                  );
                                 } else {
-                                  await provider.removeFromWatchlist(tvSeries);
-                                }
-
-                                final message = provider.watchlistMessage;
-
-                                if (context.mounted) {
-                                  if (message ==
-                                          TvSeriesDetailNotifier
-                                              .watchlistAddSuccessMessage ||
-                                      message ==
-                                          TvSeriesDetailNotifier
-                                              .watchlistRemoveSuccessMessage) {
-                                    ScaffoldMessenger.of(context)
-                                      ..hideCurrentSnackBar()
-                                      ..showSnackBar(
-                                          SnackBar(content: Text(message)));
-                                  } else {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            content: Text(message),
-                                          );
-                                        });
-                                  }
+                                  bloc.add(
+                                    TvSeriesDetailEvent.removeFromWatchlist(
+                                      tvSeries,
+                                    ),
+                                  );
                                 }
                               },
                               child: Row(
@@ -155,50 +128,65 @@ class DetailContent extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Text(
-                              _showGenres(tvSeries.genres),
-                            ),
-                            Text(
-                              _showDuration(tvSeries.episodeRunTime),
-                            ),
+                            Text(_showGenres(tvSeries.genres)),
+                            Text(_showDuration(tvSeries.episodeRunTime)),
                             Row(
                               children: [
                                 RatingBarIndicator(
                                   rating: tvSeries.voteAverage / 2,
                                   itemCount: 5,
-                                  itemBuilder: (context, index) => Icon(
-                                    Icons.star,
-                                    color: kMikadoYellow,
-                                  ),
+                                  itemBuilder:
+                                      (context, index) => Icon(
+                                        Icons.star,
+                                        color: kMikadoYellow,
+                                      ),
                                   itemSize: 24,
                                 ),
-                                Text('${tvSeries.voteAverage}')
+                                Text('${tvSeries.voteAverage}'),
                               ],
                             ),
                             SizedBox(height: 16),
-                            Text(
-                              'Overview',
-                              style: kHeading6,
-                            ),
-                            Text(
-                              tvSeries.overview,
-                            ),
+                            Text('Overview', style: kHeading6),
+                            Text(tvSeries.overview),
                             SizedBox(height: 16),
-                            Text(
-                              'Recommendations',
-                              style: kHeading6,
-                            ),
-                            Consumer<TvSeriesDetailNotifier>(
-                              builder: (context, data, child) {
-                                if (data.recommendationState ==
+                            Text('Recommendations', style: kHeading6),
+                            BlocConsumer<
+                              TvSeriesDetailBloc,
+                              TvSeriesDetailState
+                            >(
+                              listener: (context, state) {
+                                final message = state.watchlistMessage;
+                                if (message?.isNotEmpty == true) {
+                                  ScaffoldMessenger.of(context)
+                                    ..hideCurrentSnackBar()
+                                    ..showSnackBar(
+                                      SnackBar(content: Text(message!)),
+                                    );
+                                }
+
+                                if (state.errorMessage?.isNotEmpty == true) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content: Text(message!),
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                              builder: (context, data) {
+                                if (data.recommendationsState ==
                                     RequestState.loading) {
                                   return Center(
                                     child: CircularProgressIndicator(),
                                   );
-                                } else if (data.recommendationState ==
+                                } else if (data.recommendationsState ==
                                     RequestState.error) {
-                                  return Text(data.message);
-                                } else if (data.recommendationState ==
+                                  return Text(
+                                    data.errorMessage ?? "An error occurred",
+                                  );
+                                } else if (data.recommendationsState ==
                                     RequestState.loaded) {
                                   return SizedBox(
                                     height: 150,
@@ -223,11 +211,11 @@ class DetailContent extends StatelessWidget {
                                               child: CachedNetworkImage(
                                                 imageUrl:
                                                     'https://image.tmdb.org/t/p/w500${tvSeries.posterPath}',
-                                                placeholder: (context, url) =>
-                                                    Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                ),
+                                                placeholder:
+                                                    (context, url) => Center(
+                                                      child:
+                                                          CircularProgressIndicator(),
+                                                    ),
                                                 errorWidget:
                                                     (context, url, error) =>
                                                         Icon(Icons.error),
@@ -277,7 +265,7 @@ class DetailContent extends StatelessWidget {
               },
             ),
           ),
-        )
+        ),
       ],
     );
   }

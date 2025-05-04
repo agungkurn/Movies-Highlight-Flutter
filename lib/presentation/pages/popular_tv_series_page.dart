@@ -1,13 +1,13 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/popular_tv_series_notifier.dart';
+import 'package:ditonton/presentation/bloc/popular_tv_series/popular_tv_series_bloc.dart';
 import 'package:ditonton/presentation/widgets/tv_series_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PopularTvSeriesPage extends StatefulWidget {
   static const routeName = '/popular-tv-series';
 
-  const PopularTvSeriesPage({Key? key}) : super(key: key);
+  const PopularTvSeriesPage({super.key});
 
   @override
   State<PopularTvSeriesPage> createState() => _PopularTvSeriesPageState();
@@ -18,25 +18,21 @@ class _PopularTvSeriesPageState extends State<PopularTvSeriesPage> {
   void initState() {
     super.initState();
 
-    final provider =
-        Provider.of<PopularTvSeriesNotifier>(context, listen: false);
-    Future.microtask(() => provider.fetchPopularTvSeries());
+    context.read<PopularTvSeriesBloc>().add(
+      PopularTvSeriesEvent.fetchPopular(),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Popular TV Series'),
-      ),
+      appBar: AppBar(title: Text('Popular TV Series')),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularTvSeriesNotifier>(
-          builder: (context, data, child) {
+        child: BlocBuilder<PopularTvSeriesBloc, PopularTvSeriesState>(
+          builder: (context, data) {
             if (data.state == RequestState.loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              return Center(child: CircularProgressIndicator());
             } else if (data.state == RequestState.loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
@@ -48,7 +44,7 @@ class _PopularTvSeriesPageState extends State<PopularTvSeriesPage> {
             } else {
               return Center(
                 key: Key('error_message'),
-                child: Text(data.message),
+                child: Text(data.errorMessage ?? "An error occurred"),
               );
             }
           },

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/datasources/movie_local_data_source.dart';
 import 'package:ditonton/data/datasources/movie_remote_data_source.dart';
@@ -9,6 +11,7 @@ import 'package:ditonton/domain/repositories/movie_repository.dart';
 import 'package:ditonton/domain/repositories/tv_series_repository.dart';
 import 'package:ditonton/domain/usecases/get_movie_detail.dart';
 import 'package:ditonton/domain/usecases/get_movie_recommendations.dart';
+import 'package:ditonton/domain/usecases/get_movie_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/get_now_airing_tv_series.dart';
 import 'package:ditonton/domain/usecases/get_now_playing_movies.dart';
 import 'package:ditonton/domain/usecases/get_popular_movies.dart';
@@ -18,7 +21,6 @@ import 'package:ditonton/domain/usecases/get_top_rated_tv_series.dart';
 import 'package:ditonton/domain/usecases/get_tv_series_detail.dart';
 import 'package:ditonton/domain/usecases/get_tv_series_recommendations.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_movies.dart';
-import 'package:ditonton/domain/usecases/get_movie_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_tv_series.dart';
 import 'package:ditonton/domain/usecases/remove_movie_watchlist.dart';
 import 'package:ditonton/domain/usecases/remove_tv_series_watchlist.dart';
@@ -26,143 +28,179 @@ import 'package:ditonton/domain/usecases/save_movie_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_tv_series_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_movies.dart';
 import 'package:ditonton/domain/usecases/search_tv_series.dart';
-import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
-import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
-import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
-import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
-import 'package:ditonton/presentation/provider/popular_tv_series_notifier.dart';
-import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:ditonton/presentation/provider/top_rated_tv_series_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_series_detail_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_series_search_notifier.dart';
-import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
-import 'package:ditonton/presentation/provider/watchlist_tv_series_notifier.dart';
-import 'package:http/http.dart' as http;
+import 'package:ditonton/presentation/bloc/movie_details/movie_detail_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_list/movie_list_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_search/movie_search_bloc.dart';
+import 'package:ditonton/presentation/bloc/popular_movies/popular_movies_bloc.dart';
+import 'package:ditonton/presentation/bloc/popular_tv_series/popular_tv_series_bloc.dart';
+import 'package:ditonton/presentation/bloc/top_rated_movies/top_rated_movies_bloc.dart';
+import 'package:ditonton/presentation/bloc/top_rated_tv_series/top_rated_tv_series_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_details/tv_series_detail_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_list/tv_series_list_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_search/tv_series_search_bloc.dart';
+import 'package:ditonton/presentation/bloc/watchlist_movie/watchlist_movie_bloc.dart';
+import 'package:ditonton/presentation/bloc/watchlist_tv_series/watchlist_tv_series_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 
+import 'data/datasources/global_security_context.dart';
 import 'domain/usecases/get_tv_series_watchlist_status.dart';
 
 final locator = GetIt.instance;
 
 void init() {
   // provider
-  locator.registerFactory(
-    () => MovieListNotifier(
-      getNowPlayingMovies: locator(),
-      getPopularMovies: locator(),
-      getTopRatedMovies: locator(),
+  locator.registerFactoryAsync(
+        () async =>
+        MovieListBloc(
+          getNowPlayingMovies: await locator.getAsync(),
+          getPopularMovies: await locator.getAsync(),
+          getTopRatedMovies: await locator.getAsync(),
     ),
   );
-  locator.registerFactory(
-    () => MovieDetailNotifier(
-      getMovieDetail: locator(),
-      getMovieRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator(),
+  locator.registerFactoryAsync(
+        () async =>
+        MovieDetailBloc(
+          getMovieDetail: await locator.getAsync(),
+          getMovieRecommendations: await locator.getAsync(),
+          getWatchListStatus: await locator.getAsync(),
+          saveWatchlist: await locator.getAsync(),
+          removeWatchlist: await locator.getAsync(),
     ),
   );
-  locator.registerFactory(
-    () => MovieSearchNotifier(
-      searchMovies: locator(),
+  locator.registerFactoryAsync(
+        () async =>
+        MovieSearchBloc(
+          searchMovies: await locator.getAsync(),
     ),
   );
-  locator.registerFactory(
-    () => PopularMoviesNotifier(
-      locator(),
+  locator.registerFactoryAsync(
+        () async =>
+        PopularMoviesBloc(
+          await locator.getAsync(),
     ),
   );
-  locator.registerFactory(
-    () => TopRatedMoviesNotifier(
-      getTopRatedMovies: locator(),
+  locator.registerFactoryAsync(
+        () async =>
+        TopRatedMoviesBloc(
+          getTopRatedMovies: await locator.getAsync(),
     ),
   );
-  locator.registerFactory(
-    () => WatchlistMovieNotifier(
-      getWatchlistMovies: locator(),
+  locator.registerFactoryAsync(
+        () async =>
+        WatchlistMovieBloc(
+          getWatchlistMovies: await locator.getAsync(),
     ),
   );
-  locator.registerFactory(
-    () => TvSeriesListNotifier(
-      getNowAiringTvSeries: locator(),
-      getPopularTvSeries: locator(),
-      getTopRatedTvSeries: locator(),
+  locator.registerFactoryAsync(
+        () async =>
+        TvSeriesListBloc(
+          getNowAiringTvSeries: await locator.getAsync(),
+          getPopularTvSeries: await locator.getAsync(),
+          getTopRatedTvSeries: await locator.getAsync(),
     ),
   );
-  locator.registerFactory(
-    () => TvSeriesDetailNotifier(
-      getTvSeriesDetail: locator(),
-      getTvSeriesRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator(),
+  locator.registerFactoryAsync(
+        () async =>
+        TvSeriesDetailBloc(
+          getTvSeriesDetail: await locator.getAsync(),
+          getTvSeriesRecommendations: await locator.getAsync(),
+          getWatchListStatus: await locator.getAsync(),
+          saveWatchlist: await locator.getAsync(),
+          removeWatchlist: await locator.getAsync(),
     ),
   );
-  locator.registerFactory(
-    () => TvSeriesSearchNotifier(
-      searchTvSeries: locator(),
+  locator.registerFactoryAsync(
+        () async =>
+        TvSeriesSearchBloc(
+          searchTvSeries: await locator.getAsync(),
     ),
   );
-  locator.registerFactory(
-    () => PopularTvSeriesNotifier(
-      locator(),
+  locator.registerFactoryAsync(
+        () async =>
+        PopularTvSeriesBloc(
+          await locator.getAsync(),
     ),
   );
-  locator.registerFactory(
-    () => TopRatedTvSeriesNotifier(
-      getTopRatedTvSeries: locator(),
+  locator.registerFactoryAsync(
+        () async =>
+        TopRatedTvSeriesBloc(
+          getTopRatedTvSeries: await locator.getAsync(),
     ),
   );
-  locator.registerFactory(
-    () => WatchlistTvSeriesNotifier(
-      getWatchlistTvSeries: locator(),
+  locator.registerFactoryAsync(
+        () async =>
+        WatchlistTvSeriesBloc(
+          getWatchlistTvSeries: await locator.getAsync(),
     ),
   );
 
   // use case
-  locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));
-  locator.registerLazySingleton(() => GetPopularMovies(locator()));
-  locator.registerLazySingleton(() => GetTopRatedMovies(locator()));
-  locator.registerLazySingleton(() => GetMovieDetail(locator()));
-  locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
-  locator.registerLazySingleton(() => SearchMovies(locator()));
-  locator.registerLazySingleton(() => GetMovieWatchListStatus(locator()));
-  locator.registerLazySingleton(() => SaveMovieWatchlist(locator()));
-  locator.registerLazySingleton(() => RemoveMovieWatchlist(locator()));
-  locator.registerLazySingleton(() => GetWatchlistMovies(locator()));
-  locator.registerLazySingleton(() => GetNowAiringTvSeries(locator()));
-  locator.registerLazySingleton(() => GetPopularTvSeries(locator()));
-  locator.registerLazySingleton(() => GetTopRatedTvSeries(locator()));
-  locator.registerLazySingleton(() => GetTvSeriesDetail(locator()));
-  locator.registerLazySingleton(() => GetTvSeriesRecommendations(locator()));
-  locator.registerLazySingleton(() => SearchTvSeries(locator()));
-  locator.registerLazySingleton(() => GetTvSeriesWatchListStatus(locator()));
-  locator.registerLazySingleton(() => SaveTvSeriesWatchlist(locator()));
-  locator.registerLazySingleton(() => RemoveTvSeriesWatchlist(locator()));
-  locator.registerLazySingleton(() => GetWatchlistTvSeries(locator()));
+  locator.registerLazySingletonAsync(
+          () async => GetNowPlayingMovies(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetPopularMovies(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetTopRatedMovies(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetMovieDetail(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetMovieRecommendations(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => SearchMovies(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetMovieWatchListStatus(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => SaveMovieWatchlist(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => RemoveMovieWatchlist(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetWatchlistMovies(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetNowAiringTvSeries(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetPopularTvSeries(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetTopRatedTvSeries(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetTvSeriesDetail(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetTvSeriesRecommendations(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => SearchTvSeries(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetTvSeriesWatchListStatus(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => SaveTvSeriesWatchlist(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => RemoveTvSeriesWatchlist(await locator.getAsync()));
+  locator.registerLazySingletonAsync(
+          () async => GetWatchlistTvSeries(await locator.getAsync()));
 
   // repository
-  locator.registerLazySingleton<MovieRepository>(
-    () => MovieRepositoryImpl(
-      remoteDataSource: locator(),
+  locator.registerLazySingletonAsync<MovieRepository>(
+        () async =>
+        MovieRepositoryImpl(
+          remoteDataSource: await locator.getAsync(),
       localDataSource: locator(),
     ),
   );
-  locator.registerLazySingleton<TvSeriesRepository>(
-    () => TvSeriesRepositoryImpl(
-      remoteDataSource: locator(),
+  locator.registerLazySingletonAsync<TvSeriesRepository>(
+        () async =>
+        TvSeriesRepositoryImpl(
+          remoteDataSource: await locator.getAsync(),
       localDataSource: locator(),
     ),
   );
 
   // data sources
-  locator.registerLazySingleton<MovieRemoteDataSource>(
-      () => MovieRemoteDataSourceImpl(client: locator()));
+  locator.registerLazySingletonAsync<MovieRemoteDataSource>(() async =>
+      MovieRemoteDataSourceImpl(ioClient: await locator.getAsync<IOClient>()));
   locator.registerLazySingleton<MovieLocalDataSource>(
       () => MovieLocalDataSourceImpl(databaseHelper: locator()));
-  locator.registerLazySingleton<TvRemoteDataSource>(
-      () => TvRemoteDataSourceImpl(client: locator()));
+  locator.registerLazySingletonAsync<TvRemoteDataSource>(() async =>
+      TvRemoteDataSourceImpl(ioClient: await locator.getAsync<IOClient>()));
   locator.registerLazySingleton<TvSeriesLocalDataSource>(
       () => TvSeriesLocalDataSourceImpl(databaseHelper: locator()));
 
@@ -171,4 +209,9 @@ void init() {
 
   // external
   locator.registerLazySingleton(() => http.Client());
+  locator.registerLazySingletonAsync<IOClient>(() async {
+    final client = HttpClient(context: await globalSecurityContext)
+      ..badCertificateCallback = (cert, host, port) => false;
+    return IOClient(client);
+  });
 }

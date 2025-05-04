@@ -1,21 +1,19 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
+import 'package:ditonton/presentation/bloc/movie_search/movie_search_bloc.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchMoviePage extends StatelessWidget {
   static const routeName = '/search-movie';
 
-  const SearchMoviePage({Key? key}) : super(key: key);
+  const SearchMoviePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Search'),
-      ),
+      appBar: AppBar(title: Text('Search')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -23,8 +21,9 @@ class SearchMoviePage extends StatelessWidget {
           children: [
             TextField(
               onSubmitted: (query) {
-                Provider.of<MovieSearchNotifier>(context, listen: false)
-                    .fetchMovieSearch(query);
+                context.read<MovieSearchBloc>().add(
+                  MovieSearchEvent.search(query),
+                );
               },
               decoration: InputDecoration(
                 hintText: 'Search title',
@@ -34,16 +33,11 @@ class SearchMoviePage extends StatelessWidget {
               textInputAction: TextInputAction.search,
             ),
             SizedBox(height: 16),
-            Text(
-              'Search Result',
-              style: kHeading6,
-            ),
-            Consumer<MovieSearchNotifier>(
-              builder: (context, data, child) {
+            Text('Search Result', style: kHeading6),
+            BlocBuilder<MovieSearchBloc, MovieSearchState>(
+              builder: (context, data) {
                 if (data.state == RequestState.loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return Center(child: CircularProgressIndicator());
                 } else if (data.state == RequestState.loaded) {
                   final result = data.searchResult;
                   return Expanded(
@@ -57,9 +51,7 @@ class SearchMoviePage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return Expanded(
-                    child: Container(),
-                  );
+                  return Expanded(child: Container());
                 }
               },
             ),
