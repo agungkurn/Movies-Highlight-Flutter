@@ -28,7 +28,7 @@ void main() {
     );
   }
 
-  MovieDetailState _createLoadedState({
+  MovieDetailState createLoadedState({
     required bool isWatchlisted,
     String? watchlistMessage,
   }) {
@@ -47,9 +47,9 @@ void main() {
     'Watchlist button should display add icon when movie not added to watchlist',
     (WidgetTester tester) async {
       when(bloc.stream).thenAnswer(
-        (_) => Stream.value(_createLoadedState(isWatchlisted: false)),
+        (_) => Stream.value(createLoadedState(isWatchlisted: false)),
       );
-      when(bloc.state).thenReturn(_createLoadedState(isWatchlisted: false));
+      when(bloc.state).thenReturn(createLoadedState(isWatchlisted: false));
 
       await tester.pumpWidget(makeTestableWidget(MovieDetailPage(id: 1)));
 
@@ -62,9 +62,9 @@ void main() {
     'Watchlist button should display check icon when movie is added to watchlist',
     (WidgetTester tester) async {
       when(bloc.stream).thenAnswer(
-        (_) => Stream.value(_createLoadedState(isWatchlisted: true)),
+        ((_) => Stream.value(createLoadedState(isWatchlisted: true))),
       );
-      when(bloc.state).thenReturn(_createLoadedState(isWatchlisted: true));
+      when(bloc.state).thenReturn(createLoadedState(isWatchlisted: true));
 
       await tester.pumpWidget(makeTestableWidget(MovieDetailPage(id: 1)));
 
@@ -76,10 +76,10 @@ void main() {
   testWidgets(
     'Watchlist button should display Snackbar when added to watchlist',
     (WidgetTester tester) async {
-      final initialState = _createLoadedState(isWatchlisted: false);
+      final initialState = createLoadedState(isWatchlisted: false);
       when(bloc.state).thenReturn(initialState);
 
-      final afterPressState = _createLoadedState(
+      final afterPressState = createLoadedState(
         isWatchlisted: true,
         watchlistMessage: 'Added to Watchlist',
       );
@@ -106,10 +106,10 @@ void main() {
   testWidgets(
     'Watchlist button should display AlertDialog when add to watchlist failed',
     (WidgetTester tester) async {
-      final initialState = _createLoadedState(isWatchlisted: false);
+      final initialState = createLoadedState(isWatchlisted: false);
       when(bloc.state).thenReturn(initialState);
 
-      final afterPressState = _createLoadedState(
+      final afterPressState = createLoadedState(
         isWatchlisted: false,
       ).copyWith(errorMessage: 'Failed');
 
