@@ -1,0 +1,22 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "excurive-project",
+          "appId": "1:566561778940:android:b859e93394d681eecffb79",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "excurive-project",
+          "configurations": {
+            "android": "1:566561778940:android:b859e93394d681eecffb79",
+            "ios": "1:566561778940:ios:d793d784a190bafdcffb79"
+          }
+        }
+      }
+    }
+  }
+}
