@@ -5,13 +5,13 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
+import 'package:common/failure.dart' as _i6;
 import 'package:dartz/dartz.dart' as _i3;
-import 'package:ditonton/common/failure.dart' as _i6;
-import 'package:ditonton/domain/entities/tv_series.dart' as _i7;
-import 'package:ditonton/domain/repositories/tv_series_repository.dart' as _i2;
-import 'package:ditonton/domain/usecases/get_now_airing_tv_series.dart' as _i4;
-import 'package:ditonton/domain/usecases/get_popular_tv_series.dart' as _i8;
-import 'package:ditonton/domain/usecases/get_top_rated_tv_series.dart' as _i9;
+import 'package:domain/entities/tv_series.dart' as _i7;
+import 'package:domain/repositories/tv_series_repository.dart' as _i2;
+import 'package:domain/usecases/get_now_airing_tv_series.dart' as _i4;
+import 'package:domain/usecases/get_popular_tv_series.dart' as _i8;
+import 'package:domain/usecases/get_top_rated_tv_series.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint

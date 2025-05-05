@@ -12,7 +12,6 @@ part of 'movie_search_bloc.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$MovieSearchEvent implements DiagnosticableTreeMixin {
 
@@ -64,7 +63,6 @@ abstract mixin class $MovieSearchEventCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$MovieSearchEventCopyWithImpl<$Res>
     implements $MovieSearchEventCopyWith<$Res> {
@@ -147,7 +145,6 @@ abstract mixin class _$SearchCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$SearchCopyWithImpl<$Res>
     implements _$SearchCopyWith<$Res> {
@@ -202,7 +199,7 @@ mixin _$MovieSearchState implements DiagnosticableTreeMixin {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is MovieSearchState &&
-            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other.state, state) &&
             const DeepCollectionEquality().equals(
                 other.searchResult, searchResult) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -213,8 +210,8 @@ mixin _$MovieSearchState implements DiagnosticableTreeMixin {
   @override
   int get hashCode =>
       Object.hash(
-      runtimeType, state, const DeepCollectionEquality().hash(searchResult),
-      errorMessage);
+          runtimeType, const DeepCollectionEquality().hash(state),
+          const DeepCollectionEquality().hash(searchResult), errorMessage);
 
   @override
   String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
@@ -236,7 +233,6 @@ abstract mixin class $MovieSearchStateCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$MovieSearchStateCopyWithImpl<$Res>
     implements $MovieSearchStateCopyWith<$Res> {
@@ -250,9 +246,9 @@ class _$MovieSearchStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call(
-      {Object? state = null, Object? searchResult = null, Object? errorMessage = freezed,}) {
+      {Object? state = freezed, Object? searchResult = null, Object? errorMessage = freezed,}) {
     return _then(_self.copyWith(
-      state: null == state
+      state: freezed == state
           ? _self.state
           : state // ignore: cast_nullable_to_non_nullable
       as RequestState,
@@ -319,7 +315,7 @@ class _MovieSearchState
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _MovieSearchState &&
-            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other.state, state) &&
             const DeepCollectionEquality().equals(
                 other._searchResult, _searchResult) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -329,7 +325,8 @@ class _MovieSearchState
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, state,
+      Object.hash(
+          runtimeType, const DeepCollectionEquality().hash(state),
       const DeepCollectionEquality().hash(_searchResult), errorMessage);
 
   @override
@@ -354,7 +351,6 @@ abstract mixin class _$MovieSearchStateCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$MovieSearchStateCopyWithImpl<$Res>
     implements _$MovieSearchStateCopyWith<$Res> {
@@ -368,9 +364,9 @@ class __$MovieSearchStateCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call(
-      {Object? state = null, Object? searchResult = null, Object? errorMessage = freezed,}) {
+      {Object? state = freezed, Object? searchResult = null, Object? errorMessage = freezed,}) {
     return _then(_MovieSearchState(
-      state: null == state
+      state: freezed == state
           ? _self.state
           : state // ignore: cast_nullable_to_non_nullable
       as RequestState,

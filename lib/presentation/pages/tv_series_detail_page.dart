@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/tv_series.dart';
-import 'package:ditonton/domain/entities/tv_series_details.dart';
+import 'package:common/constants.dart';
+import 'package:common/state_enum.dart';
 import 'package:ditonton/presentation/bloc/tv_series_details/tv_series_detail_bloc.dart';
+import 'package:domain/entities/genre.dart';
+import 'package:domain/entities/tv_series.dart';
+import 'package:domain/entities/tv_series_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';

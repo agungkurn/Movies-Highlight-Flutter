@@ -12,7 +12,6 @@ part of 'tv_series_list_bloc.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$TvSeriesListEvent {
 
@@ -150,12 +149,12 @@ mixin _$TvSeriesListState {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is TvSeriesListState &&
-            (identical(other.nowAiringState, nowAiringState) ||
-                other.nowAiringState == nowAiringState) &&
-            (identical(other.popularState, popularState) ||
-                other.popularState == popularState) &&
-            (identical(other.topRatedState, topRatedState) ||
-                other.topRatedState == topRatedState) &&
+            const DeepCollectionEquality().equals(
+                other.nowAiringState, nowAiringState) &&
+            const DeepCollectionEquality().equals(
+                other.popularState, popularState) &&
+            const DeepCollectionEquality().equals(
+                other.topRatedState, topRatedState) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             const DeepCollectionEquality().equals(other.nowAiring, nowAiring) &&
@@ -168,9 +167,9 @@ mixin _$TvSeriesListState {
   int get hashCode =>
       Object.hash(
           runtimeType,
-          nowAiringState,
-          popularState,
-          topRatedState,
+          const DeepCollectionEquality().hash(nowAiringState),
+          const DeepCollectionEquality().hash(popularState),
+          const DeepCollectionEquality().hash(topRatedState),
           errorMessage,
           const DeepCollectionEquality().hash(nowAiring),
           const DeepCollectionEquality().hash(popular),
@@ -197,7 +196,6 @@ abstract mixin class $TvSeriesListStateCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$TvSeriesListStateCopyWithImpl<$Res>
     implements $TvSeriesListStateCopyWith<$Res> {
@@ -211,17 +209,17 @@ class _$TvSeriesListStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call(
-      {Object? nowAiringState = null, Object? popularState = null, Object? topRatedState = null, Object? errorMessage = freezed, Object? nowAiring = null, Object? popular = null, Object? topRated = null,}) {
+      {Object? nowAiringState = freezed, Object? popularState = freezed, Object? topRatedState = freezed, Object? errorMessage = freezed, Object? nowAiring = null, Object? popular = null, Object? topRated = null,}) {
     return _then(_self.copyWith(
-      nowAiringState: null == nowAiringState
+      nowAiringState: freezed == nowAiringState
           ? _self.nowAiringState
           : nowAiringState // ignore: cast_nullable_to_non_nullable
       as RequestState,
-      popularState: null == popularState
+      popularState: freezed == popularState
           ? _self.popularState
           : popularState // ignore: cast_nullable_to_non_nullable
       as RequestState,
-      topRatedState: null == topRatedState
+      topRatedState: freezed == topRatedState
           ? _self.topRatedState
           : topRatedState // ignore: cast_nullable_to_non_nullable
       as RequestState,
@@ -318,12 +316,12 @@ class _TvSeriesListState implements TvSeriesListState {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _TvSeriesListState &&
-            (identical(other.nowAiringState, nowAiringState) ||
-                other.nowAiringState == nowAiringState) &&
-            (identical(other.popularState, popularState) ||
-                other.popularState == popularState) &&
-            (identical(other.topRatedState, topRatedState) ||
-                other.topRatedState == topRatedState) &&
+            const DeepCollectionEquality().equals(
+                other.nowAiringState, nowAiringState) &&
+            const DeepCollectionEquality().equals(
+                other.popularState, popularState) &&
+            const DeepCollectionEquality().equals(
+                other.topRatedState, topRatedState) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             const DeepCollectionEquality().equals(
@@ -337,9 +335,9 @@ class _TvSeriesListState implements TvSeriesListState {
   int get hashCode =>
       Object.hash(
           runtimeType,
-          nowAiringState,
-          popularState,
-          topRatedState,
+          const DeepCollectionEquality().hash(nowAiringState),
+          const DeepCollectionEquality().hash(popularState),
+          const DeepCollectionEquality().hash(topRatedState),
           errorMessage,
           const DeepCollectionEquality().hash(_nowAiring),
           const DeepCollectionEquality().hash(_popular),
@@ -368,7 +366,6 @@ abstract mixin class _$TvSeriesListStateCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$TvSeriesListStateCopyWithImpl<$Res>
     implements _$TvSeriesListStateCopyWith<$Res> {
@@ -382,17 +379,17 @@ class __$TvSeriesListStateCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call(
-      {Object? nowAiringState = null, Object? popularState = null, Object? topRatedState = null, Object? errorMessage = freezed, Object? nowAiring = null, Object? popular = null, Object? topRated = null,}) {
+      {Object? nowAiringState = freezed, Object? popularState = freezed, Object? topRatedState = freezed, Object? errorMessage = freezed, Object? nowAiring = null, Object? popular = null, Object? topRated = null,}) {
     return _then(_TvSeriesListState(
-      nowAiringState: null == nowAiringState
+      nowAiringState: freezed == nowAiringState
           ? _self.nowAiringState
           : nowAiringState // ignore: cast_nullable_to_non_nullable
       as RequestState,
-      popularState: null == popularState
+      popularState: freezed == popularState
           ? _self.popularState
           : popularState // ignore: cast_nullable_to_non_nullable
       as RequestState,
-      topRatedState: null == topRatedState
+      topRatedState: freezed == topRatedState
           ? _self.topRatedState
           : topRatedState // ignore: cast_nullable_to_non_nullable
       as RequestState,

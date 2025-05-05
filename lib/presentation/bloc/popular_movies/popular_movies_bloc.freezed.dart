@@ -12,7 +12,6 @@ part of 'popular_movies_bloc.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$PopularMoviesEvent implements DiagnosticableTreeMixin {
 
@@ -112,7 +111,7 @@ mixin _$PopularMoviesState implements DiagnosticableTreeMixin {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is PopularMoviesState &&
-            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other.state, state) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             const DeepCollectionEquality().equals(other.movies, movies));
@@ -121,7 +120,8 @@ mixin _$PopularMoviesState implements DiagnosticableTreeMixin {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, state, errorMessage,
+      Object.hash(
+          runtimeType, const DeepCollectionEquality().hash(state), errorMessage,
       const DeepCollectionEquality().hash(movies));
 
   @override
@@ -144,7 +144,6 @@ abstract mixin class $PopularMoviesStateCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$PopularMoviesStateCopyWithImpl<$Res>
     implements $PopularMoviesStateCopyWith<$Res> {
@@ -158,9 +157,9 @@ class _$PopularMoviesStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call(
-      {Object? state = null, Object? errorMessage = freezed, Object? movies = null,}) {
+      {Object? state = freezed, Object? errorMessage = freezed, Object? movies = null,}) {
     return _then(_self.copyWith(
-      state: null == state
+      state: freezed == state
           ? _self.state
           : state // ignore: cast_nullable_to_non_nullable
       as RequestState,
@@ -227,7 +226,7 @@ class _PopularMoviesState
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _PopularMoviesState &&
-            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other.state, state) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             const DeepCollectionEquality().equals(other._movies, _movies));
@@ -236,7 +235,8 @@ class _PopularMoviesState
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, state, errorMessage,
+      Object.hash(
+          runtimeType, const DeepCollectionEquality().hash(state), errorMessage,
       const DeepCollectionEquality().hash(_movies));
 
   @override
@@ -261,7 +261,6 @@ abstract mixin class _$PopularMoviesStateCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$PopularMoviesStateCopyWithImpl<$Res>
     implements _$PopularMoviesStateCopyWith<$Res> {
@@ -275,9 +274,9 @@ class __$PopularMoviesStateCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call(
-      {Object? state = null, Object? errorMessage = freezed, Object? movies = null,}) {
+      {Object? state = freezed, Object? errorMessage = freezed, Object? movies = null,}) {
     return _then(_PopularMoviesState(
-      state: null == state
+      state: freezed == state
           ? _self.state
           : state // ignore: cast_nullable_to_non_nullable
       as RequestState,

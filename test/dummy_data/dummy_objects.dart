@@ -1,12 +1,10 @@
-import 'package:ditonton/data/models/movie_table.dart';
-import 'package:ditonton/data/models/tv_series_table.dart';
-import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/entities/movie_detail.dart';
-import 'package:ditonton/domain/entities/tv_series.dart';
-import 'package:ditonton/domain/entities/tv_series_details.dart';
-import 'package:ditonton/domain/entities/tv_series_network.dart';
-import 'package:ditonton/domain/entities/tv_series_season.dart';
+import 'package:domain/entities/genre.dart';
+import 'package:domain/entities/movie.dart';
+import 'package:domain/entities/movie_detail.dart';
+import 'package:domain/entities/tv_series.dart';
+import 'package:domain/entities/tv_series_details.dart';
+import 'package:domain/entities/tv_series_network.dart';
+import 'package:domain/entities/tv_series_season.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -114,20 +112,6 @@ final testWatchlistMovie = Movie.watchlist(
 final testWatchlistTvSeries = TvSeries.watchlist(
   id: 1,
   name: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
-);
-
-final testMovieTable = MovieTable(
-  id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
-);
-
-final testTvSeriesTable = TvSeriesTable(
-  id: 1,
-  title: 'title',
   posterPath: 'posterPath',
   overview: 'overview',
 );

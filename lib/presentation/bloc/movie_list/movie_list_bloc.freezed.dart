@@ -12,7 +12,6 @@ part of 'movie_list_bloc.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$MovieListEvent {
 
@@ -149,12 +148,12 @@ mixin _$MovieListState {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is MovieListState &&
-            (identical(other.nowPlayingMoviesState, nowPlayingMoviesState) ||
-                other.nowPlayingMoviesState == nowPlayingMoviesState) &&
-            (identical(other.popularMoviesState, popularMoviesState) ||
-                other.popularMoviesState == popularMoviesState) &&
-            (identical(other.topRatedMoviesState, topRatedMoviesState) ||
-                other.topRatedMoviesState == topRatedMoviesState) &&
+            const DeepCollectionEquality().equals(
+                other.nowPlayingMoviesState, nowPlayingMoviesState) &&
+            const DeepCollectionEquality().equals(
+                other.popularMoviesState, popularMoviesState) &&
+            const DeepCollectionEquality().equals(
+                other.topRatedMoviesState, topRatedMoviesState) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             const DeepCollectionEquality().equals(
@@ -170,9 +169,9 @@ mixin _$MovieListState {
   int get hashCode =>
       Object.hash(
           runtimeType,
-          nowPlayingMoviesState,
-          popularMoviesState,
-          topRatedMoviesState,
+          const DeepCollectionEquality().hash(nowPlayingMoviesState),
+          const DeepCollectionEquality().hash(popularMoviesState),
+          const DeepCollectionEquality().hash(topRatedMoviesState),
           errorMessage,
           const DeepCollectionEquality().hash(nowPlayingMovies),
           const DeepCollectionEquality().hash(popularMovies),
@@ -200,7 +199,6 @@ abstract mixin class $MovieListStateCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$MovieListStateCopyWithImpl<$Res>
     implements $MovieListStateCopyWith<$Res> {
@@ -214,17 +212,17 @@ class _$MovieListStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call(
-      {Object? nowPlayingMoviesState = null, Object? popularMoviesState = null, Object? topRatedMoviesState = null, Object? errorMessage = freezed, Object? nowPlayingMovies = null, Object? popularMovies = null, Object? topRatedMovies = null,}) {
+      {Object? nowPlayingMoviesState = freezed, Object? popularMoviesState = freezed, Object? topRatedMoviesState = freezed, Object? errorMessage = freezed, Object? nowPlayingMovies = null, Object? popularMovies = null, Object? topRatedMovies = null,}) {
     return _then(_self.copyWith(
-      nowPlayingMoviesState: null == nowPlayingMoviesState
+      nowPlayingMoviesState: freezed == nowPlayingMoviesState
           ? _self.nowPlayingMoviesState
           : nowPlayingMoviesState // ignore: cast_nullable_to_non_nullable
       as RequestState,
-      popularMoviesState: null == popularMoviesState
+      popularMoviesState: freezed == popularMoviesState
           ? _self.popularMoviesState
           : popularMoviesState // ignore: cast_nullable_to_non_nullable
       as RequestState,
-      topRatedMoviesState: null == topRatedMoviesState
+      topRatedMoviesState: freezed == topRatedMoviesState
           ? _self.topRatedMoviesState
           : topRatedMoviesState // ignore: cast_nullable_to_non_nullable
       as RequestState,
@@ -323,12 +321,12 @@ class _MovieListState implements MovieListState {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _MovieListState &&
-            (identical(other.nowPlayingMoviesState, nowPlayingMoviesState) ||
-                other.nowPlayingMoviesState == nowPlayingMoviesState) &&
-            (identical(other.popularMoviesState, popularMoviesState) ||
-                other.popularMoviesState == popularMoviesState) &&
-            (identical(other.topRatedMoviesState, topRatedMoviesState) ||
-                other.topRatedMoviesState == topRatedMoviesState) &&
+            const DeepCollectionEquality().equals(
+                other.nowPlayingMoviesState, nowPlayingMoviesState) &&
+            const DeepCollectionEquality().equals(
+                other.popularMoviesState, popularMoviesState) &&
+            const DeepCollectionEquality().equals(
+                other.topRatedMoviesState, topRatedMoviesState) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             const DeepCollectionEquality().equals(
@@ -344,9 +342,9 @@ class _MovieListState implements MovieListState {
   int get hashCode =>
       Object.hash(
           runtimeType,
-          nowPlayingMoviesState,
-          popularMoviesState,
-          topRatedMoviesState,
+          const DeepCollectionEquality().hash(nowPlayingMoviesState),
+          const DeepCollectionEquality().hash(popularMoviesState),
+          const DeepCollectionEquality().hash(topRatedMoviesState),
           errorMessage,
           const DeepCollectionEquality().hash(_nowPlayingMovies),
           const DeepCollectionEquality().hash(_popularMovies),
@@ -376,7 +374,6 @@ abstract mixin class _$MovieListStateCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$MovieListStateCopyWithImpl<$Res>
     implements _$MovieListStateCopyWith<$Res> {
@@ -390,17 +387,17 @@ class __$MovieListStateCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call(
-      {Object? nowPlayingMoviesState = null, Object? popularMoviesState = null, Object? topRatedMoviesState = null, Object? errorMessage = freezed, Object? nowPlayingMovies = null, Object? popularMovies = null, Object? topRatedMovies = null,}) {
+      {Object? nowPlayingMoviesState = freezed, Object? popularMoviesState = freezed, Object? topRatedMoviesState = freezed, Object? errorMessage = freezed, Object? nowPlayingMovies = null, Object? popularMovies = null, Object? topRatedMovies = null,}) {
     return _then(_MovieListState(
-      nowPlayingMoviesState: null == nowPlayingMoviesState
+      nowPlayingMoviesState: freezed == nowPlayingMoviesState
           ? _self.nowPlayingMoviesState
           : nowPlayingMoviesState // ignore: cast_nullable_to_non_nullable
       as RequestState,
-      popularMoviesState: null == popularMoviesState
+      popularMoviesState: freezed == popularMoviesState
           ? _self.popularMoviesState
           : popularMoviesState // ignore: cast_nullable_to_non_nullable
       as RequestState,
-      topRatedMoviesState: null == topRatedMoviesState
+      topRatedMoviesState: freezed == topRatedMoviesState
           ? _self.topRatedMoviesState
           : topRatedMoviesState // ignore: cast_nullable_to_non_nullable
       as RequestState,

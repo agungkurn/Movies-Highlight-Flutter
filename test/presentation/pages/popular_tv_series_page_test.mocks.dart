@@ -3,13 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
-import 'package:ditonton/domain/usecases/get_popular_tv_series.dart' as _i2;
 import 'package:ditonton/presentation/bloc/popular_tv_series/popular_tv_series_bloc.dart'
-    as _i3;
-import 'package:flutter/foundation.dart' as _i4;
-import 'package:flutter_bloc/flutter_bloc.dart' as _i6;
+    as _i2;
+import 'package:flutter/foundation.dart' as _i3;
+import 'package:flutter_bloc/flutter_bloc.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -26,19 +25,13 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeGetPopularTvSeries_0 extends _i1.SmartFake
-    implements _i2.GetPopularTvSeries {
-  _FakeGetPopularTvSeries_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakePopularTvSeriesState_1 extends _i1.SmartFake
-    implements _i3.PopularTvSeriesState {
-  _FakePopularTvSeriesState_1(Object parent, Invocation parentInvocation)
+class _FakePopularTvSeriesState_0 extends _i1.SmartFake
+    implements _i2.PopularTvSeriesState {
+  _FakePopularTvSeriesState_0(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 
   @override
-  String toString({_i4.DiagnosticLevel? minLevel = _i4.DiagnosticLevel.info}) =>
+  String toString({_i3.DiagnosticLevel? minLevel = _i3.DiagnosticLevel.info}) =>
       super.toString();
 }
 
@@ -46,40 +39,29 @@ class _FakePopularTvSeriesState_1 extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockPopularTvSeriesBloc extends _i1.Mock
-    implements _i3.PopularTvSeriesBloc {
+    implements _i2.PopularTvSeriesBloc {
   MockPopularTvSeriesBloc() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.GetPopularTvSeries get getPopularTvSeries =>
-      (super.noSuchMethod(
-            Invocation.getter(#getPopularTvSeries),
-            returnValue: _FakeGetPopularTvSeries_0(
-              this,
-              Invocation.getter(#getPopularTvSeries),
-            ),
-          )
-          as _i2.GetPopularTvSeries);
-
-  @override
-  _i3.PopularTvSeriesState get state =>
+  _i2.PopularTvSeriesState get state =>
       (super.noSuchMethod(
             Invocation.getter(#state),
-            returnValue: _FakePopularTvSeriesState_1(
+            returnValue: _FakePopularTvSeriesState_0(
               this,
               Invocation.getter(#state),
             ),
           )
-          as _i3.PopularTvSeriesState);
+          as _i2.PopularTvSeriesState);
 
   @override
-  _i5.Stream<_i3.PopularTvSeriesState> get stream =>
+  _i4.Stream<_i2.PopularTvSeriesState> get stream =>
       (super.noSuchMethod(
             Invocation.getter(#stream),
-            returnValue: _i5.Stream<_i3.PopularTvSeriesState>.empty(),
+            returnValue: _i4.Stream<_i2.PopularTvSeriesState>.empty(),
           )
-          as _i5.Stream<_i3.PopularTvSeriesState>);
+          as _i4.Stream<_i2.PopularTvSeriesState>);
 
   @override
   bool get isClosed =>
@@ -87,27 +69,27 @@ class MockPopularTvSeriesBloc extends _i1.Mock
           as bool);
 
   @override
-  void add(_i3.PopularTvSeriesEvent? event) => super.noSuchMethod(
+  void add(_i2.PopularTvSeriesEvent? event) => super.noSuchMethod(
     Invocation.method(#add, [event]),
     returnValueForMissingStub: null,
   );
 
   @override
-  void onEvent(_i3.PopularTvSeriesEvent? event) => super.noSuchMethod(
+  void onEvent(_i2.PopularTvSeriesEvent? event) => super.noSuchMethod(
     Invocation.method(#onEvent, [event]),
     returnValueForMissingStub: null,
   );
 
   @override
-  void emit(_i3.PopularTvSeriesState? state) => super.noSuchMethod(
+  void emit(_i2.PopularTvSeriesState? state) => super.noSuchMethod(
     Invocation.method(#emit, [state]),
     returnValueForMissingStub: null,
   );
 
   @override
-  void on<E extends _i3.PopularTvSeriesEvent>(
-    _i6.EventHandler<E, _i3.PopularTvSeriesState>? handler, {
-    _i6.EventTransformer<E>? transformer,
+  void on<E extends _i2.PopularTvSeriesEvent>(
+    _i5.EventHandler<E, _i2.PopularTvSeriesState>? handler, {
+    _i5.EventTransformer<E>? transformer,
   }) => super.noSuchMethod(
     Invocation.method(#on, [handler], {#transformer: transformer}),
     returnValueForMissingStub: null,
@@ -115,7 +97,7 @@ class MockPopularTvSeriesBloc extends _i1.Mock
 
   @override
   void onTransition(
-    _i6.Transition<_i3.PopularTvSeriesEvent, _i3.PopularTvSeriesState>?
+    _i5.Transition<_i2.PopularTvSeriesEvent, _i2.PopularTvSeriesState>?
     transition,
   ) => super.noSuchMethod(
     Invocation.method(#onTransition, [transition]),
@@ -123,16 +105,16 @@ class MockPopularTvSeriesBloc extends _i1.Mock
   );
 
   @override
-  _i5.Future<void> close() =>
+  _i4.Future<void> close() =>
       (super.noSuchMethod(
             Invocation.method(#close, []),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
           )
-          as _i5.Future<void>);
+          as _i4.Future<void>);
 
   @override
-  void onChange(_i6.Change<_i3.PopularTvSeriesState>? change) =>
+  void onChange(_i5.Change<_i2.PopularTvSeriesState>? change) =>
       super.noSuchMethod(
         Invocation.method(#onChange, [change]),
         returnValueForMissingStub: null,

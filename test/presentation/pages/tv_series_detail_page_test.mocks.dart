@@ -3,20 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i9;
+import 'dart:async' as _i4;
 
-import 'package:ditonton/domain/usecases/get_tv_series_detail.dart' as _i2;
-import 'package:ditonton/domain/usecases/get_tv_series_recommendations.dart'
-    as _i3;
-import 'package:ditonton/domain/usecases/get_tv_series_watchlist_status.dart'
-    as _i4;
-import 'package:ditonton/domain/usecases/remove_tv_series_watchlist.dart'
-    as _i6;
-import 'package:ditonton/domain/usecases/save_tv_series_watchlist.dart' as _i5;
 import 'package:ditonton/presentation/bloc/tv_series_details/tv_series_detail_bloc.dart'
-    as _i7;
-import 'package:flutter/foundation.dart' as _i8;
-import 'package:flutter_bloc/flutter_bloc.dart' as _i10;
+    as _i2;
+import 'package:flutter/foundation.dart' as _i3;
+import 'package:flutter_bloc/flutter_bloc.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -33,43 +25,13 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeGetTvSeriesDetail_0 extends _i1.SmartFake
-    implements _i2.GetTvSeriesDetail {
-  _FakeGetTvSeriesDetail_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeGetTvSeriesRecommendations_1 extends _i1.SmartFake
-    implements _i3.GetTvSeriesRecommendations {
-  _FakeGetTvSeriesRecommendations_1(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeGetTvSeriesWatchListStatus_2 extends _i1.SmartFake
-    implements _i4.GetTvSeriesWatchListStatus {
-  _FakeGetTvSeriesWatchListStatus_2(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeSaveTvSeriesWatchlist_3 extends _i1.SmartFake
-    implements _i5.SaveTvSeriesWatchlist {
-  _FakeSaveTvSeriesWatchlist_3(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeRemoveTvSeriesWatchlist_4 extends _i1.SmartFake
-    implements _i6.RemoveTvSeriesWatchlist {
-  _FakeRemoveTvSeriesWatchlist_4(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeTvSeriesDetailState_5 extends _i1.SmartFake
-    implements _i7.TvSeriesDetailState {
-  _FakeTvSeriesDetailState_5(Object parent, Invocation parentInvocation)
+class _FakeTvSeriesDetailState_0 extends _i1.SmartFake
+    implements _i2.TvSeriesDetailState {
+  _FakeTvSeriesDetailState_0(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 
   @override
-  String toString({_i8.DiagnosticLevel? minLevel = _i8.DiagnosticLevel.info}) =>
+  String toString({_i3.DiagnosticLevel? minLevel = _i3.DiagnosticLevel.info}) =>
       super.toString();
 }
 
@@ -77,84 +39,29 @@ class _FakeTvSeriesDetailState_5 extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockTvSeriesDetailBloc extends _i1.Mock
-    implements _i7.TvSeriesDetailBloc {
+    implements _i2.TvSeriesDetailBloc {
   MockTvSeriesDetailBloc() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.GetTvSeriesDetail get getTvSeriesDetail =>
-      (super.noSuchMethod(
-            Invocation.getter(#getTvSeriesDetail),
-            returnValue: _FakeGetTvSeriesDetail_0(
-              this,
-              Invocation.getter(#getTvSeriesDetail),
-            ),
-          )
-          as _i2.GetTvSeriesDetail);
-
-  @override
-  _i3.GetTvSeriesRecommendations get getTvSeriesRecommendations =>
-      (super.noSuchMethod(
-            Invocation.getter(#getTvSeriesRecommendations),
-            returnValue: _FakeGetTvSeriesRecommendations_1(
-              this,
-              Invocation.getter(#getTvSeriesRecommendations),
-            ),
-          )
-          as _i3.GetTvSeriesRecommendations);
-
-  @override
-  _i4.GetTvSeriesWatchListStatus get getWatchListStatus =>
-      (super.noSuchMethod(
-            Invocation.getter(#getWatchListStatus),
-            returnValue: _FakeGetTvSeriesWatchListStatus_2(
-              this,
-              Invocation.getter(#getWatchListStatus),
-            ),
-          )
-          as _i4.GetTvSeriesWatchListStatus);
-
-  @override
-  _i5.SaveTvSeriesWatchlist get saveWatchlist =>
-      (super.noSuchMethod(
-            Invocation.getter(#saveWatchlist),
-            returnValue: _FakeSaveTvSeriesWatchlist_3(
-              this,
-              Invocation.getter(#saveWatchlist),
-            ),
-          )
-          as _i5.SaveTvSeriesWatchlist);
-
-  @override
-  _i6.RemoveTvSeriesWatchlist get removeWatchlist =>
-      (super.noSuchMethod(
-            Invocation.getter(#removeWatchlist),
-            returnValue: _FakeRemoveTvSeriesWatchlist_4(
-              this,
-              Invocation.getter(#removeWatchlist),
-            ),
-          )
-          as _i6.RemoveTvSeriesWatchlist);
-
-  @override
-  _i7.TvSeriesDetailState get state =>
+  _i2.TvSeriesDetailState get state =>
       (super.noSuchMethod(
             Invocation.getter(#state),
-            returnValue: _FakeTvSeriesDetailState_5(
+            returnValue: _FakeTvSeriesDetailState_0(
               this,
               Invocation.getter(#state),
             ),
           )
-          as _i7.TvSeriesDetailState);
+          as _i2.TvSeriesDetailState);
 
   @override
-  _i9.Stream<_i7.TvSeriesDetailState> get stream =>
+  _i4.Stream<_i2.TvSeriesDetailState> get stream =>
       (super.noSuchMethod(
             Invocation.getter(#stream),
-            returnValue: _i9.Stream<_i7.TvSeriesDetailState>.empty(),
+            returnValue: _i4.Stream<_i2.TvSeriesDetailState>.empty(),
           )
-          as _i9.Stream<_i7.TvSeriesDetailState>);
+          as _i4.Stream<_i2.TvSeriesDetailState>);
 
   @override
   bool get isClosed =>
@@ -162,27 +69,27 @@ class MockTvSeriesDetailBloc extends _i1.Mock
           as bool);
 
   @override
-  void add(_i7.TvSeriesDetailEvent? event) => super.noSuchMethod(
+  void add(_i2.TvSeriesDetailEvent? event) => super.noSuchMethod(
     Invocation.method(#add, [event]),
     returnValueForMissingStub: null,
   );
 
   @override
-  void onEvent(_i7.TvSeriesDetailEvent? event) => super.noSuchMethod(
+  void onEvent(_i2.TvSeriesDetailEvent? event) => super.noSuchMethod(
     Invocation.method(#onEvent, [event]),
     returnValueForMissingStub: null,
   );
 
   @override
-  void emit(_i7.TvSeriesDetailState? state) => super.noSuchMethod(
+  void emit(_i2.TvSeriesDetailState? state) => super.noSuchMethod(
     Invocation.method(#emit, [state]),
     returnValueForMissingStub: null,
   );
 
   @override
-  void on<E extends _i7.TvSeriesDetailEvent>(
-    _i10.EventHandler<E, _i7.TvSeriesDetailState>? handler, {
-    _i10.EventTransformer<E>? transformer,
+  void on<E extends _i2.TvSeriesDetailEvent>(
+    _i5.EventHandler<E, _i2.TvSeriesDetailState>? handler, {
+    _i5.EventTransformer<E>? transformer,
   }) => super.noSuchMethod(
     Invocation.method(#on, [handler], {#transformer: transformer}),
     returnValueForMissingStub: null,
@@ -190,7 +97,7 @@ class MockTvSeriesDetailBloc extends _i1.Mock
 
   @override
   void onTransition(
-    _i10.Transition<_i7.TvSeriesDetailEvent, _i7.TvSeriesDetailState>?
+    _i5.Transition<_i2.TvSeriesDetailEvent, _i2.TvSeriesDetailState>?
     transition,
   ) => super.noSuchMethod(
     Invocation.method(#onTransition, [transition]),
@@ -198,16 +105,16 @@ class MockTvSeriesDetailBloc extends _i1.Mock
   );
 
   @override
-  _i9.Future<void> close() =>
+  _i4.Future<void> close() =>
       (super.noSuchMethod(
             Invocation.method(#close, []),
-            returnValue: _i9.Future<void>.value(),
-            returnValueForMissingStub: _i9.Future<void>.value(),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
           )
-          as _i9.Future<void>);
+          as _i4.Future<void>);
 
   @override
-  void onChange(_i10.Change<_i7.TvSeriesDetailState>? change) =>
+  void onChange(_i5.Change<_i2.TvSeriesDetailState>? change) =>
       super.noSuchMethod(
         Invocation.method(#onChange, [change]),
         returnValueForMissingStub: null,

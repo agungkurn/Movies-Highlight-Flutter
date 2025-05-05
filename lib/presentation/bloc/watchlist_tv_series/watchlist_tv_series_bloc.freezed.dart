@@ -12,7 +12,6 @@ part of 'watchlist_tv_series_bloc.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$WatchlistTvSeriesEvent implements DiagnosticableTreeMixin {
 
@@ -115,7 +114,7 @@ mixin _$WatchlistTvSeriesState implements DiagnosticableTreeMixin {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is WatchlistTvSeriesState &&
-            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other.state, state) &&
             const DeepCollectionEquality().equals(other.tvSeries, tvSeries) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage));
@@ -125,8 +124,8 @@ mixin _$WatchlistTvSeriesState implements DiagnosticableTreeMixin {
   @override
   int get hashCode =>
       Object.hash(
-      runtimeType, state, const DeepCollectionEquality().hash(tvSeries),
-      errorMessage);
+          runtimeType, const DeepCollectionEquality().hash(state),
+          const DeepCollectionEquality().hash(tvSeries), errorMessage);
 
   @override
   String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
@@ -148,7 +147,6 @@ abstract mixin class $WatchlistTvSeriesStateCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$WatchlistTvSeriesStateCopyWithImpl<$Res>
     implements $WatchlistTvSeriesStateCopyWith<$Res> {
@@ -162,9 +160,9 @@ class _$WatchlistTvSeriesStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call(
-      {Object? state = null, Object? tvSeries = null, Object? errorMessage = freezed,}) {
+      {Object? state = freezed, Object? tvSeries = null, Object? errorMessage = freezed,}) {
     return _then(_self.copyWith(
-      state: null == state
+      state: freezed == state
           ? _self.state
           : state // ignore: cast_nullable_to_non_nullable
       as RequestState,
@@ -232,7 +230,7 @@ class _WatchlistTvSeriesState
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _WatchlistTvSeriesState &&
-            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other.state, state) &&
             const DeepCollectionEquality().equals(other._tvSeries, _tvSeries) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage));
@@ -242,8 +240,8 @@ class _WatchlistTvSeriesState
   @override
   int get hashCode =>
       Object.hash(
-      runtimeType, state, const DeepCollectionEquality().hash(_tvSeries),
-      errorMessage);
+          runtimeType, const DeepCollectionEquality().hash(state),
+          const DeepCollectionEquality().hash(_tvSeries), errorMessage);
 
   @override
   String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
@@ -267,7 +265,6 @@ abstract mixin class _$WatchlistTvSeriesStateCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$WatchlistTvSeriesStateCopyWithImpl<$Res>
     implements _$WatchlistTvSeriesStateCopyWith<$Res> {
@@ -281,9 +278,9 @@ class __$WatchlistTvSeriesStateCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call(
-      {Object? state = null, Object? tvSeries = null, Object? errorMessage = freezed,}) {
+      {Object? state = freezed, Object? tvSeries = null, Object? errorMessage = freezed,}) {
     return _then(_WatchlistTvSeriesState(
-      state: null == state
+      state: freezed == state
           ? _self.state
           : state // ignore: cast_nullable_to_non_nullable
       as RequestState,

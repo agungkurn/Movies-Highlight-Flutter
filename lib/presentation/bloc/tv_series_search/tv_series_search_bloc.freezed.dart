@@ -12,7 +12,6 @@ part of 'tv_series_search_bloc.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$TvSeriesSearchEvent implements DiagnosticableTreeMixin {
 
@@ -64,7 +63,6 @@ abstract mixin class $TvSeriesSearchEventCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$TvSeriesSearchEventCopyWithImpl<$Res>
     implements $TvSeriesSearchEventCopyWith<$Res> {
@@ -147,7 +145,6 @@ abstract mixin class _$SearchCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$SearchCopyWithImpl<$Res>
     implements _$SearchCopyWith<$Res> {
@@ -202,7 +199,7 @@ mixin _$TvSeriesSearchState implements DiagnosticableTreeMixin {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is TvSeriesSearchState &&
-            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other.state, state) &&
             const DeepCollectionEquality().equals(
                 other.searchResult, searchResult) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -213,8 +210,8 @@ mixin _$TvSeriesSearchState implements DiagnosticableTreeMixin {
   @override
   int get hashCode =>
       Object.hash(
-      runtimeType, state, const DeepCollectionEquality().hash(searchResult),
-      errorMessage);
+          runtimeType, const DeepCollectionEquality().hash(state),
+          const DeepCollectionEquality().hash(searchResult), errorMessage);
 
   @override
   String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
@@ -236,7 +233,6 @@ abstract mixin class $TvSeriesSearchStateCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$TvSeriesSearchStateCopyWithImpl<$Res>
     implements $TvSeriesSearchStateCopyWith<$Res> {
@@ -250,9 +246,9 @@ class _$TvSeriesSearchStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call(
-      {Object? state = null, Object? searchResult = null, Object? errorMessage = freezed,}) {
+      {Object? state = freezed, Object? searchResult = null, Object? errorMessage = freezed,}) {
     return _then(_self.copyWith(
-      state: null == state
+      state: freezed == state
           ? _self.state
           : state // ignore: cast_nullable_to_non_nullable
       as RequestState,
@@ -320,7 +316,7 @@ class _TvSeriesSearchState
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _TvSeriesSearchState &&
-            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other.state, state) &&
             const DeepCollectionEquality().equals(
                 other._searchResult, _searchResult) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -330,7 +326,8 @@ class _TvSeriesSearchState
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, state,
+      Object.hash(
+          runtimeType, const DeepCollectionEquality().hash(state),
       const DeepCollectionEquality().hash(_searchResult), errorMessage);
 
   @override
@@ -355,7 +352,6 @@ abstract mixin class _$TvSeriesSearchStateCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$TvSeriesSearchStateCopyWithImpl<$Res>
     implements _$TvSeriesSearchStateCopyWith<$Res> {
@@ -369,9 +365,9 @@ class __$TvSeriesSearchStateCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call(
-      {Object? state = null, Object? searchResult = null, Object? errorMessage = freezed,}) {
+      {Object? state = freezed, Object? searchResult = null, Object? errorMessage = freezed,}) {
     return _then(_TvSeriesSearchState(
-      state: null == state
+      state: freezed == state
           ? _self.state
           : state // ignore: cast_nullable_to_non_nullable
       as RequestState,

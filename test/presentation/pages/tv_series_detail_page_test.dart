@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ditonton/common/state_enum.dart';
+import 'package:common/state_enum.dart';
 import 'package:ditonton/presentation/bloc/tv_series_details/tv_series_detail_bloc.dart';
 import 'package:ditonton/presentation/pages/tv_series_detail_page.dart';
 import 'package:flutter/material.dart';

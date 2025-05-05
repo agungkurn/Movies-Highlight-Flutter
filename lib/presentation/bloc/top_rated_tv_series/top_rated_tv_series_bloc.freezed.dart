@@ -12,7 +12,6 @@ part of 'top_rated_tv_series_bloc.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$TopRatedTvSeriesEvent implements DiagnosticableTreeMixin {
 
@@ -114,7 +113,7 @@ mixin _$TopRatedTvSeriesState implements DiagnosticableTreeMixin {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is TopRatedTvSeriesState &&
-            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other.state, state) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             const DeepCollectionEquality().equals(other.tvSeries, tvSeries));
@@ -123,7 +122,8 @@ mixin _$TopRatedTvSeriesState implements DiagnosticableTreeMixin {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, state, errorMessage,
+      Object.hash(
+          runtimeType, const DeepCollectionEquality().hash(state), errorMessage,
       const DeepCollectionEquality().hash(tvSeries));
 
   @override
@@ -146,7 +146,6 @@ abstract mixin class $TopRatedTvSeriesStateCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$TopRatedTvSeriesStateCopyWithImpl<$Res>
     implements $TopRatedTvSeriesStateCopyWith<$Res> {
@@ -160,9 +159,9 @@ class _$TopRatedTvSeriesStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call(
-      {Object? state = null, Object? errorMessage = freezed, Object? tvSeries = null,}) {
+      {Object? state = freezed, Object? errorMessage = freezed, Object? tvSeries = null,}) {
     return _then(_self.copyWith(
-      state: null == state
+      state: freezed == state
           ? _self.state
           : state // ignore: cast_nullable_to_non_nullable
       as RequestState,
@@ -230,7 +229,7 @@ class _TopRatedTvSeriesState
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _TopRatedTvSeriesState &&
-            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other.state, state) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             const DeepCollectionEquality().equals(other._tvSeries, _tvSeries));
@@ -239,7 +238,8 @@ class _TopRatedTvSeriesState
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, state, errorMessage,
+      Object.hash(
+          runtimeType, const DeepCollectionEquality().hash(state), errorMessage,
       const DeepCollectionEquality().hash(_tvSeries));
 
   @override
@@ -264,7 +264,6 @@ abstract mixin class _$TopRatedTvSeriesStateCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$TopRatedTvSeriesStateCopyWithImpl<$Res>
     implements _$TopRatedTvSeriesStateCopyWith<$Res> {
@@ -278,9 +277,9 @@ class __$TopRatedTvSeriesStateCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call(
-      {Object? state = null, Object? errorMessage = freezed, Object? tvSeries = null,}) {
+      {Object? state = freezed, Object? errorMessage = freezed, Object? tvSeries = null,}) {
     return _then(_TopRatedTvSeriesState(
-      state: null == state
+      state: freezed == state
           ? _self.state
           : state // ignore: cast_nullable_to_non_nullable
       as RequestState,

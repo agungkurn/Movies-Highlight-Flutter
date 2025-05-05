@@ -12,7 +12,6 @@ part of 'movie_detail_bloc.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$MovieDetailEvent implements DiagnosticableTreeMixin {
 
@@ -105,7 +104,6 @@ abstract mixin class _$FetchDetailsCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$FetchDetailsCopyWithImpl<$Res>
     implements _$FetchDetailsCopyWith<$Res> {
@@ -185,7 +183,6 @@ abstract mixin class _$FetchRecommendationsCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$FetchRecommendationsCopyWithImpl<$Res>
     implements _$FetchRecommendationsCopyWith<$Res> {
@@ -265,7 +262,6 @@ abstract mixin class _$CheckWatchlistStatusCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$CheckWatchlistStatusCopyWithImpl<$Res>
     implements _$CheckWatchlistStatusCopyWith<$Res> {
@@ -314,12 +310,13 @@ class _AddToWatchlist with DiagnosticableTreeMixin implements MovieDetailEvent {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _AddToWatchlist &&
-            (identical(other.movie, movie) || other.movie == movie));
+            const DeepCollectionEquality().equals(other.movie, movie));
   }
 
 
   @override
-  int get hashCode => Object.hash(runtimeType, movie);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(movie));
 
   @override
   String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
@@ -342,7 +339,6 @@ abstract mixin class _$AddToWatchlistCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$AddToWatchlistCopyWithImpl<$Res>
     implements _$AddToWatchlistCopyWith<$Res> {
@@ -353,9 +349,9 @@ class __$AddToWatchlistCopyWithImpl<$Res>
 
   /// Create a copy of MovieDetailEvent
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline') $Res call({Object? movie = null,}) {
+  @pragma('vm:prefer-inline') $Res call({Object? movie = freezed,}) {
     return _then(_AddToWatchlist(
-      null == movie
+      freezed == movie
           ? _self.movie
           : movie // ignore: cast_nullable_to_non_nullable
       as MovieDetail,
@@ -396,12 +392,13 @@ class _RemoveFromWatchlist
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _RemoveFromWatchlist &&
-            (identical(other.movie, movie) || other.movie == movie));
+            const DeepCollectionEquality().equals(other.movie, movie));
   }
 
 
   @override
-  int get hashCode => Object.hash(runtimeType, movie);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(movie));
 
   @override
   String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
@@ -424,7 +421,6 @@ abstract mixin class _$RemoveFromWatchlistCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$RemoveFromWatchlistCopyWithImpl<$Res>
     implements _$RemoveFromWatchlistCopyWith<$Res> {
@@ -435,9 +431,9 @@ class __$RemoveFromWatchlistCopyWithImpl<$Res>
 
   /// Create a copy of MovieDetailEvent
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline') $Res call({Object? movie = null,}) {
+  @pragma('vm:prefer-inline') $Res call({Object? movie = freezed,}) {
     return _then(_RemoveFromWatchlist(
-      null == movie
+      freezed == movie
           ? _self.movie
           : movie // ignore: cast_nullable_to_non_nullable
       as MovieDetail,
@@ -489,15 +485,15 @@ mixin _$MovieDetailState implements DiagnosticableTreeMixin {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is MovieDetailState &&
-            (identical(other.detailsState, detailsState) ||
-                other.detailsState == detailsState) &&
-            (identical(other.recommendationsState, recommendationsState) ||
-                other.recommendationsState == recommendationsState) &&
+            const DeepCollectionEquality().equals(
+                other.detailsState, detailsState) &&
+            const DeepCollectionEquality().equals(
+                other.recommendationsState, recommendationsState) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.watchlistMessage, watchlistMessage) ||
                 other.watchlistMessage == watchlistMessage) &&
-            (identical(other.movie, movie) || other.movie == movie) &&
+            const DeepCollectionEquality().equals(other.movie, movie) &&
             const DeepCollectionEquality().equals(
                 other.movieRecommendations, movieRecommendations) &&
             (identical(other.isInWatchlist, isInWatchlist) ||
@@ -509,11 +505,11 @@ mixin _$MovieDetailState implements DiagnosticableTreeMixin {
   int get hashCode =>
       Object.hash(
           runtimeType,
-          detailsState,
-          recommendationsState,
+          const DeepCollectionEquality().hash(detailsState),
+          const DeepCollectionEquality().hash(recommendationsState),
           errorMessage,
           watchlistMessage,
-          movie,
+          const DeepCollectionEquality().hash(movie),
           const DeepCollectionEquality().hash(movieRecommendations),
           isInWatchlist);
 
@@ -538,7 +534,6 @@ abstract mixin class $MovieDetailStateCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$MovieDetailStateCopyWithImpl<$Res>
     implements $MovieDetailStateCopyWith<$Res> {
@@ -552,13 +547,13 @@ class _$MovieDetailStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call(
-      {Object? detailsState = null, Object? recommendationsState = null, Object? errorMessage = freezed, Object? watchlistMessage = freezed, Object? movie = freezed, Object? movieRecommendations = null, Object? isInWatchlist = null,}) {
+      {Object? detailsState = freezed, Object? recommendationsState = freezed, Object? errorMessage = freezed, Object? watchlistMessage = freezed, Object? movie = freezed, Object? movieRecommendations = null, Object? isInWatchlist = null,}) {
     return _then(_self.copyWith(
-      detailsState: null == detailsState
+      detailsState: freezed == detailsState
           ? _self.detailsState
           : detailsState // ignore: cast_nullable_to_non_nullable
       as RequestState,
-      recommendationsState: null == recommendationsState
+      recommendationsState: freezed == recommendationsState
           ? _self.recommendationsState
           : recommendationsState // ignore: cast_nullable_to_non_nullable
       as RequestState,
@@ -656,15 +651,15 @@ class _MovieDetailState
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _MovieDetailState &&
-            (identical(other.detailsState, detailsState) ||
-                other.detailsState == detailsState) &&
-            (identical(other.recommendationsState, recommendationsState) ||
-                other.recommendationsState == recommendationsState) &&
+            const DeepCollectionEquality().equals(
+                other.detailsState, detailsState) &&
+            const DeepCollectionEquality().equals(
+                other.recommendationsState, recommendationsState) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.watchlistMessage, watchlistMessage) ||
                 other.watchlistMessage == watchlistMessage) &&
-            (identical(other.movie, movie) || other.movie == movie) &&
+            const DeepCollectionEquality().equals(other.movie, movie) &&
             const DeepCollectionEquality().equals(
                 other._movieRecommendations, _movieRecommendations) &&
             (identical(other.isInWatchlist, isInWatchlist) ||
@@ -676,11 +671,11 @@ class _MovieDetailState
   int get hashCode =>
       Object.hash(
           runtimeType,
-          detailsState,
-          recommendationsState,
+          const DeepCollectionEquality().hash(detailsState),
+          const DeepCollectionEquality().hash(recommendationsState),
           errorMessage,
           watchlistMessage,
-          movie,
+          const DeepCollectionEquality().hash(movie),
           const DeepCollectionEquality().hash(_movieRecommendations),
           isInWatchlist);
 
@@ -707,7 +702,6 @@ abstract mixin class _$MovieDetailStateCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$MovieDetailStateCopyWithImpl<$Res>
     implements _$MovieDetailStateCopyWith<$Res> {
@@ -721,13 +715,13 @@ class __$MovieDetailStateCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call(
-      {Object? detailsState = null, Object? recommendationsState = null, Object? errorMessage = freezed, Object? watchlistMessage = freezed, Object? movie = freezed, Object? movieRecommendations = null, Object? isInWatchlist = null,}) {
+      {Object? detailsState = freezed, Object? recommendationsState = freezed, Object? errorMessage = freezed, Object? watchlistMessage = freezed, Object? movie = freezed, Object? movieRecommendations = null, Object? isInWatchlist = null,}) {
     return _then(_MovieDetailState(
-      detailsState: null == detailsState
+      detailsState: freezed == detailsState
           ? _self.detailsState
           : detailsState // ignore: cast_nullable_to_non_nullable
       as RequestState,
-      recommendationsState: null == recommendationsState
+      recommendationsState: freezed == recommendationsState
           ? _self.recommendationsState
           : recommendationsState // ignore: cast_nullable_to_non_nullable
       as RequestState,

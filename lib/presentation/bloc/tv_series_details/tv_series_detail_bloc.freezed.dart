@@ -12,7 +12,6 @@ part of 'tv_series_detail_bloc.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$TvSeriesDetailEvent implements DiagnosticableTreeMixin {
 
@@ -107,7 +106,6 @@ abstract mixin class _$FetchDetailsCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$FetchDetailsCopyWithImpl<$Res>
     implements _$FetchDetailsCopyWith<$Res> {
@@ -187,7 +185,6 @@ abstract mixin class _$FetchRecommendationsCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$FetchRecommendationsCopyWithImpl<$Res>
     implements _$FetchRecommendationsCopyWith<$Res> {
@@ -267,7 +264,6 @@ abstract mixin class _$CheckWatchlistStatusCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$CheckWatchlistStatusCopyWithImpl<$Res>
     implements _$CheckWatchlistStatusCopyWith<$Res> {
@@ -318,13 +314,13 @@ class _AddToWatchlist
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _AddToWatchlist &&
-            (identical(other.tvSeries, tvSeries) ||
-                other.tvSeries == tvSeries));
+            const DeepCollectionEquality().equals(other.tvSeries, tvSeries));
   }
 
 
   @override
-  int get hashCode => Object.hash(runtimeType, tvSeries);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(tvSeries));
 
   @override
   String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
@@ -347,7 +343,6 @@ abstract mixin class _$AddToWatchlistCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$AddToWatchlistCopyWithImpl<$Res>
     implements _$AddToWatchlistCopyWith<$Res> {
@@ -358,9 +353,9 @@ class __$AddToWatchlistCopyWithImpl<$Res>
 
   /// Create a copy of TvSeriesDetailEvent
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline') $Res call({Object? tvSeries = null,}) {
+  @pragma('vm:prefer-inline') $Res call({Object? tvSeries = freezed,}) {
     return _then(_AddToWatchlist(
-      null == tvSeries
+      freezed == tvSeries
           ? _self.tvSeries
           : tvSeries // ignore: cast_nullable_to_non_nullable
       as TvSeriesDetails,
@@ -401,13 +396,13 @@ class _RemoveFromWatchlist
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _RemoveFromWatchlist &&
-            (identical(other.tvSeries, tvSeries) ||
-                other.tvSeries == tvSeries));
+            const DeepCollectionEquality().equals(other.tvSeries, tvSeries));
   }
 
 
   @override
-  int get hashCode => Object.hash(runtimeType, tvSeries);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(tvSeries));
 
   @override
   String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
@@ -430,7 +425,6 @@ abstract mixin class _$RemoveFromWatchlistCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$RemoveFromWatchlistCopyWithImpl<$Res>
     implements _$RemoveFromWatchlistCopyWith<$Res> {
@@ -441,9 +435,9 @@ class __$RemoveFromWatchlistCopyWithImpl<$Res>
 
   /// Create a copy of TvSeriesDetailEvent
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline') $Res call({Object? tvSeries = null,}) {
+  @pragma('vm:prefer-inline') $Res call({Object? tvSeries = freezed,}) {
     return _then(_RemoveFromWatchlist(
-      null == tvSeries
+      freezed == tvSeries
           ? _self.tvSeries
           : tvSeries // ignore: cast_nullable_to_non_nullable
       as TvSeriesDetails,
@@ -495,16 +489,15 @@ mixin _$TvSeriesDetailState implements DiagnosticableTreeMixin {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is TvSeriesDetailState &&
-            (identical(other.detailsState, detailsState) ||
-                other.detailsState == detailsState) &&
-            (identical(other.recommendationsState, recommendationsState) ||
-                other.recommendationsState == recommendationsState) &&
+            const DeepCollectionEquality().equals(
+                other.detailsState, detailsState) &&
+            const DeepCollectionEquality().equals(
+                other.recommendationsState, recommendationsState) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.watchlistMessage, watchlistMessage) ||
                 other.watchlistMessage == watchlistMessage) &&
-            (identical(other.tvSeries, tvSeries) ||
-                other.tvSeries == tvSeries) &&
+            const DeepCollectionEquality().equals(other.tvSeries, tvSeries) &&
             const DeepCollectionEquality().equals(
                 other.tvSeriesRecommendations, tvSeriesRecommendations) &&
             (identical(other.isInWatchlist, isInWatchlist) ||
@@ -516,11 +509,11 @@ mixin _$TvSeriesDetailState implements DiagnosticableTreeMixin {
   int get hashCode =>
       Object.hash(
           runtimeType,
-          detailsState,
-          recommendationsState,
+          const DeepCollectionEquality().hash(detailsState),
+          const DeepCollectionEquality().hash(recommendationsState),
           errorMessage,
           watchlistMessage,
-          tvSeries,
+          const DeepCollectionEquality().hash(tvSeries),
           const DeepCollectionEquality().hash(tvSeriesRecommendations),
           isInWatchlist);
 
@@ -545,7 +538,6 @@ abstract mixin class $TvSeriesDetailStateCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$TvSeriesDetailStateCopyWithImpl<$Res>
     implements $TvSeriesDetailStateCopyWith<$Res> {
@@ -559,13 +551,13 @@ class _$TvSeriesDetailStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call(
-      {Object? detailsState = null, Object? recommendationsState = null, Object? errorMessage = freezed, Object? watchlistMessage = freezed, Object? tvSeries = freezed, Object? tvSeriesRecommendations = null, Object? isInWatchlist = null,}) {
+      {Object? detailsState = freezed, Object? recommendationsState = freezed, Object? errorMessage = freezed, Object? watchlistMessage = freezed, Object? tvSeries = freezed, Object? tvSeriesRecommendations = null, Object? isInWatchlist = null,}) {
     return _then(_self.copyWith(
-      detailsState: null == detailsState
+      detailsState: freezed == detailsState
           ? _self.detailsState
           : detailsState // ignore: cast_nullable_to_non_nullable
       as RequestState,
-      recommendationsState: null == recommendationsState
+      recommendationsState: freezed == recommendationsState
           ? _self.recommendationsState
           : recommendationsState // ignore: cast_nullable_to_non_nullable
       as RequestState,
@@ -664,16 +656,15 @@ class _TvSeriesDetailState
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _TvSeriesDetailState &&
-            (identical(other.detailsState, detailsState) ||
-                other.detailsState == detailsState) &&
-            (identical(other.recommendationsState, recommendationsState) ||
-                other.recommendationsState == recommendationsState) &&
+            const DeepCollectionEquality().equals(
+                other.detailsState, detailsState) &&
+            const DeepCollectionEquality().equals(
+                other.recommendationsState, recommendationsState) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.watchlistMessage, watchlistMessage) ||
                 other.watchlistMessage == watchlistMessage) &&
-            (identical(other.tvSeries, tvSeries) ||
-                other.tvSeries == tvSeries) &&
+            const DeepCollectionEquality().equals(other.tvSeries, tvSeries) &&
             const DeepCollectionEquality().equals(
                 other._tvSeriesRecommendations, _tvSeriesRecommendations) &&
             (identical(other.isInWatchlist, isInWatchlist) ||
@@ -685,11 +676,11 @@ class _TvSeriesDetailState
   int get hashCode =>
       Object.hash(
           runtimeType,
-          detailsState,
-          recommendationsState,
+          const DeepCollectionEquality().hash(detailsState),
+          const DeepCollectionEquality().hash(recommendationsState),
           errorMessage,
           watchlistMessage,
-          tvSeries,
+          const DeepCollectionEquality().hash(tvSeries),
           const DeepCollectionEquality().hash(_tvSeriesRecommendations),
           isInWatchlist);
 
@@ -716,7 +707,6 @@ abstract mixin class _$TvSeriesDetailStateCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$TvSeriesDetailStateCopyWithImpl<$Res>
     implements _$TvSeriesDetailStateCopyWith<$Res> {
@@ -730,13 +720,13 @@ class __$TvSeriesDetailStateCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call(
-      {Object? detailsState = null, Object? recommendationsState = null, Object? errorMessage = freezed, Object? watchlistMessage = freezed, Object? tvSeries = freezed, Object? tvSeriesRecommendations = null, Object? isInWatchlist = null,}) {
+      {Object? detailsState = freezed, Object? recommendationsState = freezed, Object? errorMessage = freezed, Object? watchlistMessage = freezed, Object? tvSeries = freezed, Object? tvSeriesRecommendations = null, Object? isInWatchlist = null,}) {
     return _then(_TvSeriesDetailState(
-      detailsState: null == detailsState
+      detailsState: freezed == detailsState
           ? _self.detailsState
           : detailsState // ignore: cast_nullable_to_non_nullable
       as RequestState,
-      recommendationsState: null == recommendationsState
+      recommendationsState: freezed == recommendationsState
           ? _self.recommendationsState
           : recommendationsState // ignore: cast_nullable_to_non_nullable
       as RequestState,
