@@ -1,7 +1,8 @@
 import 'package:common/constants.dart';
+import 'package:common/route.dart';
 import 'package:common/state_enum.dart';
+import 'package:common/widgets/film_card.dart';
 import 'package:ditonton/presentation/bloc/tv_series_search/tv_series_search_bloc.dart';
-import 'package:ditonton/presentation/widgets/tv_series_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,7 +46,18 @@ class SearchTvSeriesPage extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
                         final tvSeries = data.searchResult[index];
-                        return TvSeriesCard(tvSeries);
+                        return FilmCard(
+                          title: tvSeries.name,
+                          overview: tvSeries.overview,
+                          posterPath: tvSeries.posterPath,
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              Routes.tvSeriesDetails,
+                              arguments: tvSeries.id,
+                            );
+                          },
+                        );
                       },
                       itemCount: result.length,
                     ),

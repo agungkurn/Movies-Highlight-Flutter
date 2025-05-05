@@ -1,4 +1,4 @@
-name: data
+name: about
 description: "A new Flutter package project."
 version: 0.0.1
 homepage:
@@ -10,21 +10,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  domain:
-    path: ../domain
   common:
     path: ../common
-  equatable: ^2.0.5
-  http: ^1.2.2
-  sqflite: ^2.3.3+1
-  dartz: ^0.10.1
+  data:
+    path: ../data
+  domain:
+    path: ../domain
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  mockito: ^5.0.8
-  build_runner: ^2.4.15
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -32,10 +28,9 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
-  # To add assets to your package, add an assets section, like this:
+# To add assets to your package, add an assets section, like this:
 assets:
-  - ../cert
-
+  - ../assets
   # For details regarding assets in packages, see
   # https://flutter.dev/to/asset-from-package
   #

@@ -1,34 +1,35 @@
+import 'package:about/about_page.dart';
 import 'package:common/constants.dart';
+import 'package:common/route.dart';
 import 'package:common/utils.dart';
+import 'package:details/bloc/movie_details/movie_detail_bloc.dart';
+import 'package:details/bloc/tv_series_details/tv_series_detail_bloc.dart';
+import 'package:details/movie_detail_page.dart';
+import 'package:details/tv_series_detail_page.dart';
 import 'package:ditonton/firebase_options.dart';
 import 'package:ditonton/injection.dart' as di;
-import 'package:ditonton/presentation/bloc/movie_details/movie_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_list/movie_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_search/movie_search_bloc.dart';
 import 'package:ditonton/presentation/bloc/popular_movies/popular_movies_bloc.dart';
 import 'package:ditonton/presentation/bloc/popular_tv_series/popular_tv_series_bloc.dart';
 import 'package:ditonton/presentation/bloc/top_rated_movies/top_rated_movies_bloc.dart';
 import 'package:ditonton/presentation/bloc/top_rated_tv_series/top_rated_tv_series_bloc.dart';
-import 'package:ditonton/presentation/bloc/tv_series_details/tv_series_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_list/tv_series_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_search/tv_series_search_bloc.dart';
-import 'package:ditonton/presentation/bloc/watchlist_movie/watchlist_movie_bloc.dart';
-import 'package:ditonton/presentation/bloc/watchlist_tv_series/watchlist_tv_series_bloc.dart';
-import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/home_page.dart';
-import 'package:ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/presentation/pages/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/popular_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/search_movie_page.dart';
 import 'package:ditonton/presentation/pages/search_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_tv_series_page.dart';
-import 'package:ditonton/presentation/pages/tv_series_detail_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:watchlist/bloc/watchlist_movie/watchlist_movie_bloc.dart';
+import 'package:watchlist/bloc/watchlist_tv_series/watchlist_tv_series_bloc.dart';
+import 'package:watchlist/watchlist_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -100,13 +101,13 @@ class MyApp extends StatelessWidget {
           return CupertinoPageRoute(builder: (_) => TopRatedMoviesPage());
         case TopRatedTvSeriesPage.routeName:
           return CupertinoPageRoute(builder: (_) => TopRatedTvSeriesPage());
-        case MovieDetailPage.routeName:
+        case Routes.movieDetails:
           final id = settings.arguments as int;
           return MaterialPageRoute(
             builder: (_) => MovieDetailPage(id: id),
             settings: settings,
           );
-        case TvSeriesDetailPage.routeName:
+        case Routes.tvSeriesDetails:
           final id = settings.arguments as int;
           return MaterialPageRoute(
             builder: (_) => TvSeriesDetailPage(id: id),
@@ -116,9 +117,9 @@ class MyApp extends StatelessWidget {
           return CupertinoPageRoute(builder: (_) => SearchMoviePage());
         case SearchTvSeriesPage.routeName:
           return CupertinoPageRoute(builder: (_) => SearchTvSeriesPage());
-        case WatchlistPage.routeName:
+        case Routes.watchlist:
           return MaterialPageRoute(builder: (_) => WatchlistPage());
-        case AboutPage.routeName:
+        case Routes.about:
           return MaterialPageRoute(builder: (_) => AboutPage());
         default:
           return MaterialPageRoute(

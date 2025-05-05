@@ -1,18 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/constants.dart';
+import 'package:common/route.dart';
 import 'package:common/state_enum.dart';
 import 'package:ditonton/presentation/bloc/movie_list/movie_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_list/tv_series_list_bloc.dart';
-import 'package:ditonton/presentation/pages/about_page.dart';
-import 'package:ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/presentation/pages/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/popular_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/search_movie_page.dart';
 import 'package:ditonton/presentation/pages/search_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_tv_series_page.dart';
-import 'package:ditonton/presentation/pages/tv_series_detail_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:domain/entities/movie.dart';
 import 'package:domain/entities/tv_series.dart';
 import 'package:flutter/material.dart';
@@ -69,12 +66,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               leading: Icon(Icons.save_alt),
               title: Text('Watchlist'),
               onTap: () {
-                Navigator.pushNamed(context, WatchlistPage.routeName);
+                Navigator.pushNamed(context, Routes.watchlist);
               },
             ),
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, AboutPage.routeName);
+                Navigator.pushNamed(context, Routes.about);
               },
               leading: Icon(Icons.info_outline),
               title: Text('About'),
@@ -276,7 +273,7 @@ class MovieList extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  MovieDetailPage.routeName,
+                  Routes.movieDetails,
                   arguments: movie.id,
                 );
               },
@@ -318,7 +315,7 @@ class TvSeriesList extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  TvSeriesDetailPage.routeName,
+                  Routes.tvSeriesDetails,
                   arguments: movie.id,
                 );
               },

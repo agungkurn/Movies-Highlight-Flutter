@@ -1,7 +1,8 @@
 import 'package:common/constants.dart';
+import 'package:common/route.dart';
 import 'package:common/state_enum.dart';
+import 'package:common/widgets/film_card.dart';
 import 'package:ditonton/presentation/bloc/movie_search/movie_search_bloc.dart';
-import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,7 +46,18 @@ class SearchMoviePage extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
                         final movie = data.searchResult[index];
-                        return MovieCard(movie);
+                        return FilmCard(
+                          title: movie.title,
+                          overview: movie.overview,
+                          posterPath: movie.posterPath,
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              Routes.movieDetails,
+                              arguments: movie.id,
+                            );
+                          },
+                        );
                       },
                       itemCount: result.length,
                     ),

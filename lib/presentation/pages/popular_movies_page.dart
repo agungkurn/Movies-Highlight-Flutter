@@ -1,6 +1,7 @@
+import 'package:common/route.dart';
 import 'package:common/state_enum.dart';
+import 'package:common/widgets/film_card.dart';
 import 'package:ditonton/presentation/bloc/popular_movies/popular_movies_bloc.dart';
-import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,7 +35,18 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final movie = data.movies[index];
-                  return MovieCard(movie);
+                  return FilmCard(
+                    title: movie.title,
+                    overview: movie.overview,
+                    posterPath: movie.posterPath,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.movieDetails,
+                        arguments: movie.id,
+                      );
+                    },
+                  );
                 },
                 itemCount: data.movies.length,
               );

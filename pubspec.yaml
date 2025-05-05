@@ -29,6 +29,12 @@ dependencies:
     path: data
   domain:
     path: domain
+  about:
+    path: about
+  details:
+    path: details
+  watchlist:
+    path: watchlist
 
   http: ^1.2.2
   dartz: ^0.10.1
